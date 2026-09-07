@@ -1,0 +1,10 @@
+version: "Swift version 5.6.3-dev (LLVM 72dbaa0dbac49e4, Swift 43f64c8712d4f83)"
+options: "944a96f5b951ef33ee925a5fea45966f1444bef1d1f78c0b09082a74c8519afa"
+build_start_time: [1788817330, 619786977]
+build_end_time: [1788817334, 179461002]
+inputs:
+  "/Users/srv-admin/Documents/ios6-app/vpnold/vpnold/vpnold/AppDelegate.swift": [1788816293, 800750255]
+  "/Users/srv-admin/Documents/ios6-app/vpnold/vpnold/vpnold/CrashReport.swift": [1788816293, 910989522]
+  "/Users/srv-admin/Documents/ios6-app/vpnold/vpnold/vpnold/DiagnosticVC.swift": [1788817310, 437705516]
+  "/Users/srv-admin/Documents/ios6-app/vpnold/vpnold/vpnold/LogViewController.swift": [1788816293, 989197254]
+  "/Users/srv-admin/Documents/ios6-app/vpnold/vpnold/vpnold/ManagementClient.swift": [1788817310, 382477283]

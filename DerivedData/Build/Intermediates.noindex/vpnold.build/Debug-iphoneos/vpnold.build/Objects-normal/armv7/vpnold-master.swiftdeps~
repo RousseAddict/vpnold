@@ -1,0 +1,7 @@
+version: "Swift version 5.6.3-dev (LLVM 72dbaa0dbac49e4, Swift 43f64c8712d4f83)"
+options: "3c3d82ad003b3efc3226c6ab9ec54067a498c044abb4e698e4f0e546fbdc727f"
+build_start_time: [1782955577, 48732042]
+build_end_time: [1782955621, 541921138]
+inputs:
+  "/Users/srv-admin/Documents/ios6-app/vpnold/vpnold/vpnold/AppDelegate.swift": [1782955558, 601174831]
+  "/Users/srv-admin/Documents/ios6-app/vpnold/vpnold/vpnold/DiagnosticVC.swift": [1782955558, 711748600]

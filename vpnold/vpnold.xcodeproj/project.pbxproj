@@ -1,0 +1,270 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DD0000000000000000000020 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0000000000000000000010 /* AppDelegate.swift */; };
+		DD0000000000000000000021 /* DiagnosticVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0000000000000000000011 /* DiagnosticVC.swift */; };
+		DD0000000000000000000024 /* ManagementClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0000000000000000000015 /* ManagementClient.swift */; };
+		DD0000000000000000000022 /* utun_probe.c in Sources */ = {isa = PBXBuildFile; fileRef = DD0000000000000000000012 /* utun_probe.c */; settings = {COMPILER_FLAGS = "-w"; }; };
+		DD0000000000000000000023 /* ovpn_spawn.c in Sources */ = {isa = PBXBuildFile; fileRef = DD0000000000000000000013 /* ovpn_spawn.c */; settings = {COMPILER_FLAGS = "-w"; }; };
+		DD0000000000000000000025 /* root_helper.c in Sources */ = {isa = PBXBuildFile; fileRef = DD0000000000000000000016 /* root_helper.c */; settings = {COMPILER_FLAGS = "-w"; }; };
+		DD0000000000000000000026 /* crash_trap.c in Sources */ = {isa = PBXBuildFile; fileRef = DD0000000000000000000017 /* crash_trap.c */; settings = {COMPILER_FLAGS = "-w"; }; };
+		DD0000000000000000000027 /* CrashReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0000000000000000000018 /* CrashReport.swift */; };
+		DD0000000000000000000028 /* LogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0000000000000000000019 /* LogViewController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		DD0000000000000000000006 /* vpnold.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = vpnold.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD0000000000000000000010 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		DD0000000000000000000011 /* DiagnosticVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosticVC.swift; sourceTree = "<group>"; };
+		DD0000000000000000000012 /* utun_probe.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = utun_probe.c; sourceTree = "<group>"; };
+		DD0000000000000000000013 /* ovpn_spawn.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ovpn_spawn.c; sourceTree = "<group>"; };
+		DD0000000000000000000015 /* ManagementClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagementClient.swift; sourceTree = "<group>"; };
+		DD0000000000000000000016 /* root_helper.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = root_helper.c; sourceTree = "<group>"; };
+		DD0000000000000000000017 /* crash_trap.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = crash_trap.c; sourceTree = "<group>"; };
+		DD0000000000000000000018 /* CrashReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashReport.swift; sourceTree = "<group>"; };
+		DD0000000000000000000019 /* LogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewController.swift; sourceTree = "<group>"; };
+		DD0000000000000000000014 /* vpnold-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "vpnold-Bridging-Header.h"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DD0000000000000000000008 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DD0000000000000000000002 = {
+			isa = PBXGroup;
+			children = (
+				DD0000000000000000000004 /* vpnold */,
+				DD0000000000000000000003 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DD0000000000000000000003 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DD0000000000000000000006 /* vpnold.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DD0000000000000000000004 /* vpnold */ = {
+			isa = PBXGroup;
+			children = (
+				DD0000000000000000000010 /* AppDelegate.swift */,
+				DD0000000000000000000011 /* DiagnosticVC.swift */,
+				DD0000000000000000000015 /* ManagementClient.swift */,
+				DD0000000000000000000018 /* CrashReport.swift */,
+				DD0000000000000000000019 /* LogViewController.swift */,
+				DD0000000000000000000012 /* utun_probe.c */,
+				DD0000000000000000000017 /* crash_trap.c */,
+				DD0000000000000000000013 /* ovpn_spawn.c */,
+				DD0000000000000000000016 /* root_helper.c */,
+				DD0000000000000000000014 /* vpnold-Bridging-Header.h */,
+			);
+			path = vpnold;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DD0000000000000000000005 /* vpnold */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DD000000000000000000000B /* Build configuration list for PBXNativeTarget "vpnold" */;
+			buildPhases = (
+				DD0000000000000000000007 /* Sources */,
+				DD0000000000000000000008 /* Frameworks */,
+				DD0000000000000000000009 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = vpnold;
+			productName = vpnold;
+			productReference = DD0000000000000000000006 /* vpnold.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DD0000000000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1320;
+				LastUpgradeCheck = 1320;
+				TargetAttributes = {
+					DD0000000000000000000005 = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
+				};
+			};
+			buildConfigurationList = DD000000000000000000000A /* Build configuration list for PBXProject "vpnold" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DD0000000000000000000002;
+			productRefGroup = DD0000000000000000000003 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DD0000000000000000000005 /* vpnold */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DD0000000000000000000009 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DD0000000000000000000007 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD0000000000000000000020 /* AppDelegate.swift in Sources */,
+				DD0000000000000000000021 /* DiagnosticVC.swift in Sources */,
+				DD0000000000000000000024 /* ManagementClient.swift in Sources */,
+				DD0000000000000000000022 /* utun_probe.c in Sources */,
+				DD0000000000000000000023 /* ovpn_spawn.c in Sources */,
+				DD0000000000000000000025 /* root_helper.c in Sources */,
+				DD0000000000000000000026 /* crash_trap.c in Sources */,
+				DD0000000000000000000027 /* CrashReport.swift in Sources */,
+				DD0000000000000000000028 /* LogViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		DD000000000000000000000C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		DD000000000000000000000D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		DD000000000000000000000E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/../ThirdParty/compat-include";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = rousseaddict.vpnold;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "vpnold/vpnold-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		DD000000000000000000000F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/../ThirdParty/compat-include";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = rousseaddict.vpnold;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "vpnold/vpnold-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DD000000000000000000000A /* Build configuration list for PBXProject "vpnold" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DD000000000000000000000C /* Debug */,
+				DD000000000000000000000D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DD000000000000000000000B /* Build configuration list for PBXNativeTarget "vpnold" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DD000000000000000000000E /* Debug */,
+				DD000000000000000000000F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DD0000000000000000000001 /* Project object */;
+}
