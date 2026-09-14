@@ -228,10 +228,25 @@ SWIFT_CLASS("_TtC6vpnold11AppDelegate")
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
-@class UIAlertView;
+@class NSCoder;
+@class UITableView;
+@class NSIndexPath;
+@class UITableViewCell;
 @class NSString;
 @class NSBundle;
-@class NSCoder;
+
+/// Modal list of the available .ovpn files, with the current one checkmarked.
+SWIFT_CLASS("_TtC6vpnold14ConfigPickerVC")
+@interface ConfigPickerVC : UIViewController <UITableViewDataSource, UITableViewDelegate>
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
+- (void)viewDidLoad;
+- (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
+- (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
+- (void)tableView:(UITableView * _Nonnull)tableView didSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
+@end
+
+@class UIAlertView;
 
 SWIFT_CLASS("_TtC6vpnold12DiagnosticVC")
 @interface DiagnosticVC : UIViewController <UIAlertViewDelegate>

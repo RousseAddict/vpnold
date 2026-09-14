@@ -421,6 +421,33 @@
         },
         {
           "kind": "Var",
+          "name": "logText",
+          "printedName": "logText",
+          "children": [
+            {
+              "kind": "TypeNominal",
+              "name": "String",
+              "printedName": "Swift.String",
+              "usr": "s:SS"
+            }
+          ],
+          "declKind": "Var",
+          "usr": "s:6vpnold12DiagnosticVCC7logText33_2E07B080DE42D3328395843D270B48C8LLSSvp",
+          "mangledName": "$s6vpnold12DiagnosticVCC7logText33_2E07B080DE42D3328395843D270B48C8LLSSvp",
+          "moduleName": "vpnold",
+          "isInternal": true,
+          "declAttributes": [
+            "Custom",
+            "HasInitialValue",
+            "Final",
+            "HasStorage",
+            "AccessControl"
+          ],
+          "fixedbinaryorder": 1,
+          "hasStorage": true
+        },
+        {
+          "kind": "Var",
           "name": "uuidLabel",
           "printedName": "uuidLabel",
           "children": [
@@ -443,7 +470,7 @@
             "HasStorage",
             "AccessControl"
           ],
-          "fixedbinaryorder": 1,
+          "fixedbinaryorder": 2,
           "isLet": true,
           "hasStorage": true
         },
@@ -471,7 +498,7 @@
             "HasStorage",
             "AccessControl"
           ],
-          "fixedbinaryorder": 2,
+          "fixedbinaryorder": 3,
           "isLet": true,
           "hasStorage": true
         },
@@ -499,8 +526,36 @@
             "HasStorage",
             "AccessControl"
           ],
-          "fixedbinaryorder": 3,
+          "fixedbinaryorder": 4,
           "isLet": true,
+          "hasStorage": true
+        },
+        {
+          "kind": "Var",
+          "name": "configButton",
+          "printedName": "configButton",
+          "children": [
+            {
+              "kind": "TypeNominal",
+              "name": "WeakStorage",
+              "printedName": "UIKit.UIButton?"
+            }
+          ],
+          "declKind": "Var",
+          "usr": "s:6vpnold12DiagnosticVCC12configButton33_2E07B080DE42D3328395843D270B48C8LLSo8UIButtonCSgvp",
+          "mangledName": "$s6vpnold12DiagnosticVCC12configButton33_2E07B080DE42D3328395843D270B48C8LLSo8UIButtonCSgvp",
+          "moduleName": "vpnold",
+          "isInternal": true,
+          "declAttributes": [
+            "Custom",
+            "HasInitialValue",
+            "Final",
+            "HasStorage",
+            "ReferenceOwnership",
+            "AccessControl"
+          ],
+          "fixedbinaryorder": 5,
+          "ownership": 1,
           "hasStorage": true
         },
         {
@@ -527,7 +582,47 @@
             "HasStorage",
             "AccessControl"
           ],
-          "fixedbinaryorder": 4,
+          "fixedbinaryorder": 6,
+          "hasStorage": true
+        },
+        {
+          "kind": "Var",
+          "name": "lastBytes",
+          "printedName": "lastBytes",
+          "children": [
+            {
+              "kind": "TypeNominal",
+              "name": "Tuple",
+              "printedName": "(Swift.UInt64, Swift.UInt64)",
+              "children": [
+                {
+                  "kind": "TypeNominal",
+                  "name": "UInt64",
+                  "printedName": "Swift.UInt64",
+                  "usr": "s:s6UInt64V"
+                },
+                {
+                  "kind": "TypeNominal",
+                  "name": "UInt64",
+                  "printedName": "Swift.UInt64",
+                  "usr": "s:s6UInt64V"
+                }
+              ]
+            }
+          ],
+          "declKind": "Var",
+          "usr": "s:6vpnold12DiagnosticVCC9lastBytes33_2E07B080DE42D3328395843D270B48C8LLs6UInt64V_AGtvp",
+          "mangledName": "$s6vpnold12DiagnosticVCC9lastBytes33_2E07B080DE42D3328395843D270B48C8LLs6UInt64V_AGtvp",
+          "moduleName": "vpnold",
+          "isInternal": true,
+          "declAttributes": [
+            "Custom",
+            "HasInitialValue",
+            "Final",
+            "HasStorage",
+            "AccessControl"
+          ],
+          "fixedbinaryorder": 7,
           "hasStorage": true
         },
         {
@@ -562,7 +657,7 @@
             "HasStorage",
             "AccessControl"
           ],
-          "fixedbinaryorder": 5,
+          "fixedbinaryorder": 8,
           "hasStorage": true
         },
         {
@@ -589,7 +684,7 @@
             "HasStorage",
             "AccessControl"
           ],
-          "fixedbinaryorder": 6,
+          "fixedbinaryorder": 9,
           "hasStorage": true
         },
         {
@@ -617,7 +712,7 @@
             "AccessControl",
             "RawDocComment"
           ],
-          "fixedbinaryorder": 7,
+          "fixedbinaryorder": 10,
           "hasStorage": true
         },
         {
@@ -644,7 +739,7 @@
             "HasStorage",
             "AccessControl"
           ],
-          "fixedbinaryorder": 8,
+          "fixedbinaryorder": 11,
           "isLet": true,
           "hasStorage": true
         },
@@ -680,7 +775,7 @@
             "HasStorage",
             "AccessControl"
           ],
-          "fixedbinaryorder": 9,
+          "fixedbinaryorder": 12,
           "hasStorage": true
         },
         {
@@ -707,7 +802,7 @@
             "HasStorage",
             "AccessControl"
           ],
-          "fixedbinaryorder": 10,
+          "fixedbinaryorder": 13,
           "hasStorage": true
         },
         {
@@ -2808,6 +2903,870 @@
           "printedName": "CustomDebugStringConvertible",
           "usr": "s:s28CustomDebugStringConvertibleP",
           "mangledName": "$ss28CustomDebugStringConvertibleP"
+        }
+      ]
+    },
+    {
+      "kind": "Import",
+      "name": "UIKit",
+      "printedName": "UIKit",
+      "declKind": "Import",
+      "moduleName": "vpnold"
+    },
+    {
+      "kind": "TypeDecl",
+      "name": "ConfigStore",
+      "printedName": "ConfigStore",
+      "children": [
+        {
+          "kind": "Var",
+          "name": "searchDirs",
+          "printedName": "searchDirs",
+          "children": [
+            {
+              "kind": "TypeNominal",
+              "name": "Array",
+              "printedName": "[Swift.String]",
+              "children": [
+                {
+                  "kind": "TypeNominal",
+                  "name": "String",
+                  "printedName": "Swift.String",
+                  "usr": "s:SS"
+                }
+              ],
+              "usr": "s:Sa"
+            }
+          ],
+          "declKind": "Var",
+          "usr": "s:6vpnold11ConfigStoreO10searchDirsSaySSGvpZ",
+          "mangledName": "$s6vpnold11ConfigStoreO10searchDirsSaySSGvpZ",
+          "moduleName": "vpnold",
+          "static": true,
+          "declAttributes": [
+            "RawDocComment"
+          ],
+          "accessors": [
+            {
+              "kind": "Accessor",
+              "name": "Get",
+              "printedName": "Get()",
+              "children": [
+                {
+                  "kind": "TypeNominal",
+                  "name": "Array",
+                  "printedName": "[Swift.String]",
+                  "children": [
+                    {
+                      "kind": "TypeNominal",
+                      "name": "String",
+                      "printedName": "Swift.String",
+                      "usr": "s:SS"
+                    }
+                  ],
+                  "usr": "s:Sa"
+                }
+              ],
+              "declKind": "Accessor",
+              "usr": "s:6vpnold11ConfigStoreO10searchDirsSaySSGvgZ",
+              "mangledName": "$s6vpnold11ConfigStoreO10searchDirsSaySSGvgZ",
+              "moduleName": "vpnold",
+              "static": true,
+              "accessorKind": "get"
+            }
+          ]
+        },
+        {
+          "kind": "Function",
+          "name": "available",
+          "printedName": "available()",
+          "children": [
+            {
+              "kind": "TypeNominal",
+              "name": "Array",
+              "printedName": "[Swift.String]",
+              "children": [
+                {
+                  "kind": "TypeNominal",
+                  "name": "String",
+                  "printedName": "Swift.String",
+                  "usr": "s:SS"
+                }
+              ],
+              "usr": "s:Sa"
+            }
+          ],
+          "declKind": "Func",
+          "usr": "s:6vpnold11ConfigStoreO9availableSaySSGyFZ",
+          "mangledName": "$s6vpnold11ConfigStoreO9availableSaySSGyFZ",
+          "moduleName": "vpnold",
+          "static": true,
+          "declAttributes": [
+            "RawDocComment"
+          ],
+          "funcSelfKind": "NonMutating"
+        },
+        {
+          "kind": "Var",
+          "name": "selected",
+          "printedName": "selected",
+          "children": [
+            {
+              "kind": "TypeNominal",
+              "name": "Optional",
+              "printedName": "Swift.String?",
+              "children": [
+                {
+                  "kind": "TypeNominal",
+                  "name": "String",
+                  "printedName": "Swift.String",
+                  "usr": "s:SS"
+                }
+              ],
+              "usr": "s:Sq"
+            }
+          ],
+          "declKind": "Var",
+          "usr": "s:6vpnold11ConfigStoreO8selectedSSSgvpZ",
+          "mangledName": "$s6vpnold11ConfigStoreO8selectedSSSgvpZ",
+          "moduleName": "vpnold",
+          "static": true,
+          "declAttributes": [
+            "RawDocComment"
+          ],
+          "accessors": [
+            {
+              "kind": "Accessor",
+              "name": "Get",
+              "printedName": "Get()",
+              "children": [
+                {
+                  "kind": "TypeNominal",
+                  "name": "Optional",
+                  "printedName": "Swift.String?",
+                  "children": [
+                    {
+                      "kind": "TypeNominal",
+                      "name": "String",
+                      "printedName": "Swift.String",
+                      "usr": "s:SS"
+                    }
+                  ],
+                  "usr": "s:Sq"
+                }
+              ],
+              "declKind": "Accessor",
+              "usr": "s:6vpnold11ConfigStoreO8selectedSSSgvgZ",
+              "mangledName": "$s6vpnold11ConfigStoreO8selectedSSSgvgZ",
+              "moduleName": "vpnold",
+              "static": true,
+              "accessorKind": "get"
+            },
+            {
+              "kind": "Accessor",
+              "name": "Set",
+              "printedName": "Set()",
+              "children": [
+                {
+                  "kind": "TypeNominal",
+                  "name": "Void",
+                  "printedName": "()"
+                },
+                {
+                  "kind": "TypeNominal",
+                  "name": "Optional",
+                  "printedName": "Swift.String?",
+                  "children": [
+                    {
+                      "kind": "TypeNominal",
+                      "name": "String",
+                      "printedName": "Swift.String",
+                      "usr": "s:SS"
+                    }
+                  ],
+                  "usr": "s:Sq"
+                }
+              ],
+              "declKind": "Accessor",
+              "usr": "s:6vpnold11ConfigStoreO8selectedSSSgvsZ",
+              "mangledName": "$s6vpnold11ConfigStoreO8selectedSSSgvsZ",
+              "moduleName": "vpnold",
+              "static": true,
+              "accessorKind": "set"
+            },
+            {
+              "kind": "Accessor",
+              "name": "Modify",
+              "printedName": "Modify()",
+              "children": [
+                {
+                  "kind": "TypeNominal",
+                  "name": "Void",
+                  "printedName": "()"
+                }
+              ],
+              "declKind": "Accessor",
+              "usr": "s:6vpnold11ConfigStoreO8selectedSSSgvMZ",
+              "mangledName": "$s6vpnold11ConfigStoreO8selectedSSSgvMZ",
+              "moduleName": "vpnold",
+              "static": true,
+              "implicit": true,
+              "declAttributes": [
+                "Transparent"
+              ],
+              "accessorKind": "_modify"
+            }
+          ]
+        }
+      ],
+      "declKind": "Enum",
+      "usr": "s:6vpnold11ConfigStoreO",
+      "mangledName": "$s6vpnold11ConfigStoreO",
+      "moduleName": "vpnold",
+      "declAttributes": [
+        "RawDocComment"
+      ],
+      "isEnumExhaustive": true,
+      "conformances": [
+        {
+          "kind": "Conformance",
+          "name": "Sendable",
+          "printedName": "Sendable",
+          "usr": "s:s8SendableP",
+          "mangledName": "$ss8SendableP"
+        }
+      ]
+    },
+    {
+      "kind": "TypeDecl",
+      "name": "ConfigPickerVC",
+      "printedName": "ConfigPickerVC",
+      "children": [
+        {
+          "kind": "Var",
+          "name": "table",
+          "printedName": "table",
+          "children": [
+            {
+              "kind": "TypeNominal",
+              "name": "UITableView",
+              "printedName": "UIKit.UITableView",
+              "usr": "c:objc(cs)UITableView"
+            }
+          ],
+          "declKind": "Var",
+          "usr": "s:6vpnold14ConfigPickerVCC5table33_944802AB5D2E273B1536FB2FE2ED99B0LLSo11UITableViewCvp",
+          "mangledName": "$s6vpnold14ConfigPickerVCC5table33_944802AB5D2E273B1536FB2FE2ED99B0LLSo11UITableViewCvp",
+          "moduleName": "vpnold",
+          "isInternal": true,
+          "declAttributes": [
+            "Custom",
+            "HasInitialValue",
+            "Final",
+            "HasStorage",
+            "AccessControl"
+          ],
+          "fixedbinaryorder": 0,
+          "isLet": true,
+          "hasStorage": true
+        },
+        {
+          "kind": "Var",
+          "name": "paths",
+          "printedName": "paths",
+          "children": [
+            {
+              "kind": "TypeNominal",
+              "name": "Array",
+              "printedName": "[Swift.String]",
+              "children": [
+                {
+                  "kind": "TypeNominal",
+                  "name": "String",
+                  "printedName": "Swift.String",
+                  "usr": "s:SS"
+                }
+              ],
+              "usr": "s:Sa"
+            }
+          ],
+          "declKind": "Var",
+          "usr": "s:6vpnold14ConfigPickerVCC5paths33_944802AB5D2E273B1536FB2FE2ED99B0LLSaySSGvp",
+          "mangledName": "$s6vpnold14ConfigPickerVCC5paths33_944802AB5D2E273B1536FB2FE2ED99B0LLSaySSGvp",
+          "moduleName": "vpnold",
+          "isInternal": true,
+          "declAttributes": [
+            "Custom",
+            "Final",
+            "HasStorage",
+            "AccessControl"
+          ],
+          "fixedbinaryorder": 1,
+          "isLet": true,
+          "hasStorage": true
+        },
+        {
+          "kind": "Var",
+          "name": "onPick",
+          "printedName": "onPick",
+          "children": [
+            {
+              "kind": "TypeFunc",
+              "name": "Function",
+              "printedName": "(Swift.String) -> ()",
+              "children": [
+                {
+                  "kind": "TypeNominal",
+                  "name": "Void",
+                  "printedName": "()"
+                },
+                {
+                  "kind": "TypeNominal",
+                  "name": "String",
+                  "printedName": "Swift.String",
+                  "usr": "s:SS"
+                }
+              ]
+            }
+          ],
+          "declKind": "Var",
+          "usr": "s:6vpnold14ConfigPickerVCC6onPick33_944802AB5D2E273B1536FB2FE2ED99B0LLyySScvp",
+          "mangledName": "$s6vpnold14ConfigPickerVCC6onPick33_944802AB5D2E273B1536FB2FE2ED99B0LLyySScvp",
+          "moduleName": "vpnold",
+          "isInternal": true,
+          "declAttributes": [
+            "Custom",
+            "Final",
+            "HasStorage",
+            "AccessControl"
+          ],
+          "fixedbinaryorder": 2,
+          "isLet": true,
+          "hasStorage": true
+        },
+        {
+          "kind": "Constructor",
+          "name": "init",
+          "printedName": "init(onPick:)",
+          "children": [
+            {
+              "kind": "TypeNominal",
+              "name": "ConfigPickerVC",
+              "printedName": "vpnold.ConfigPickerVC",
+              "usr": "c:@M@vpnold@objc(cs)ConfigPickerVC"
+            },
+            {
+              "kind": "TypeFunc",
+              "name": "Function",
+              "printedName": "(Swift.String) -> ()",
+              "children": [
+                {
+                  "kind": "TypeNominal",
+                  "name": "Void",
+                  "printedName": "()"
+                },
+                {
+                  "kind": "TypeNominal",
+                  "name": "String",
+                  "printedName": "Swift.String",
+                  "usr": "s:SS"
+                }
+              ]
+            }
+          ],
+          "declKind": "Constructor",
+          "usr": "s:6vpnold14ConfigPickerVCC6onPickACySSc_tcfc",
+          "mangledName": "$s6vpnold14ConfigPickerVCC6onPickACySSc_tcfc",
+          "moduleName": "vpnold",
+          "declAttributes": [
+            "Custom"
+          ],
+          "init_kind": "Designated"
+        },
+        {
+          "kind": "Constructor",
+          "name": "init",
+          "printedName": "init(coder:)",
+          "children": [
+            {
+              "kind": "TypeNominal",
+              "name": "Optional",
+              "printedName": "vpnold.ConfigPickerVC?",
+              "children": [
+                {
+                  "kind": "TypeNominal",
+                  "name": "ConfigPickerVC",
+                  "printedName": "vpnold.ConfigPickerVC",
+                  "usr": "c:@M@vpnold@objc(cs)ConfigPickerVC"
+                }
+              ],
+              "usr": "s:Sq"
+            },
+            {
+              "kind": "TypeNominal",
+              "name": "NSCoder",
+              "printedName": "Foundation.NSCoder",
+              "usr": "c:objc(cs)NSCoder"
+            }
+          ],
+          "declKind": "Constructor",
+          "usr": "c:@M@vpnold@objc(cs)ConfigPickerVC(im)initWithCoder:",
+          "mangledName": "$s6vpnold14ConfigPickerVCC5coderACSgSo7NSCoderC_tcfc",
+          "moduleName": "vpnold",
+          "overriding": true,
+          "objc_name": "initWithCoder:",
+          "declAttributes": [
+            "Dynamic",
+            "ObjC",
+            "Custom",
+            "Required"
+          ],
+          "init_kind": "Designated"
+        },
+        {
+          "kind": "Function",
+          "name": "viewDidLoad",
+          "printedName": "viewDidLoad()",
+          "children": [
+            {
+              "kind": "TypeNominal",
+              "name": "Void",
+              "printedName": "()"
+            }
+          ],
+          "declKind": "Func",
+          "usr": "c:@M@vpnold@objc(cs)ConfigPickerVC(im)viewDidLoad",
+          "mangledName": "$s6vpnold14ConfigPickerVCC11viewDidLoadyyF",
+          "moduleName": "vpnold",
+          "overriding": true,
+          "objc_name": "viewDidLoad",
+          "declAttributes": [
+            "Final",
+            "ObjC",
+            "Custom",
+            "Override"
+          ],
+          "funcSelfKind": "NonMutating"
+        },
+        {
+          "kind": "Function",
+          "name": "tableView",
+          "printedName": "tableView(_:numberOfRowsInSection:)",
+          "children": [
+            {
+              "kind": "TypeNominal",
+              "name": "Int",
+              "printedName": "Swift.Int",
+              "usr": "s:Si"
+            },
+            {
+              "kind": "TypeNominal",
+              "name": "UITableView",
+              "printedName": "UIKit.UITableView",
+              "usr": "c:objc(cs)UITableView"
+            },
+            {
+              "kind": "TypeNominal",
+              "name": "Int",
+              "printedName": "Swift.Int",
+              "usr": "s:Si"
+            }
+          ],
+          "declKind": "Func",
+          "usr": "c:@M@vpnold@objc(cs)ConfigPickerVC(im)tableView:numberOfRowsInSection:",
+          "mangledName": "$s6vpnold14ConfigPickerVCC9tableView_21numberOfRowsInSectionSiSo07UITableF0C_SitF",
+          "moduleName": "vpnold",
+          "objc_name": "tableView:numberOfRowsInSection:",
+          "declAttributes": [
+            "Final",
+            "ObjC",
+            "Custom",
+            "RawDocComment"
+          ],
+          "funcSelfKind": "NonMutating"
+        },
+        {
+          "kind": "Function",
+          "name": "tableView",
+          "printedName": "tableView(_:cellForRowAt:)",
+          "children": [
+            {
+              "kind": "TypeNominal",
+              "name": "UITableViewCell",
+              "printedName": "UIKit.UITableViewCell",
+              "usr": "c:objc(cs)UITableViewCell"
+            },
+            {
+              "kind": "TypeNominal",
+              "name": "UITableView",
+              "printedName": "UIKit.UITableView",
+              "usr": "c:objc(cs)UITableView"
+            },
+            {
+              "kind": "TypeNominal",
+              "name": "IndexPath",
+              "printedName": "Foundation.IndexPath",
+              "usr": "s:10Foundation9IndexPathV"
+            }
+          ],
+          "declKind": "Func",
+          "usr": "c:@M@vpnold@objc(cs)ConfigPickerVC(im)tableView:cellForRowAtIndexPath:",
+          "mangledName": "$s6vpnold14ConfigPickerVCC9tableView_12cellForRowAtSo07UITableF4CellCSo0kF0C_10Foundation9IndexPathVtF",
+          "moduleName": "vpnold",
+          "objc_name": "tableView:cellForRowAtIndexPath:",
+          "declAttributes": [
+            "Final",
+            "ObjC",
+            "Custom"
+          ],
+          "funcSelfKind": "NonMutating"
+        },
+        {
+          "kind": "Function",
+          "name": "tableView",
+          "printedName": "tableView(_:didSelectRowAt:)",
+          "children": [
+            {
+              "kind": "TypeNominal",
+              "name": "Void",
+              "printedName": "()"
+            },
+            {
+              "kind": "TypeNominal",
+              "name": "UITableView",
+              "printedName": "UIKit.UITableView",
+              "usr": "c:objc(cs)UITableView"
+            },
+            {
+              "kind": "TypeNominal",
+              "name": "IndexPath",
+              "printedName": "Foundation.IndexPath",
+              "usr": "s:10Foundation9IndexPathV"
+            }
+          ],
+          "declKind": "Func",
+          "usr": "c:@M@vpnold@objc(cs)ConfigPickerVC(im)tableView:didSelectRowAtIndexPath:",
+          "mangledName": "$s6vpnold14ConfigPickerVCC9tableView_14didSelectRowAtySo07UITableF0C_10Foundation9IndexPathVtF",
+          "moduleName": "vpnold",
+          "objc_name": "tableView:didSelectRowAtIndexPath:",
+          "declAttributes": [
+            "Final",
+            "ObjC",
+            "Custom"
+          ],
+          "funcSelfKind": "NonMutating"
+        },
+        {
+          "kind": "Function",
+          "name": "present",
+          "printedName": "present(from:onPick:)",
+          "children": [
+            {
+              "kind": "TypeNominal",
+              "name": "Void",
+              "printedName": "()"
+            },
+            {
+              "kind": "TypeNominal",
+              "name": "UIViewController",
+              "printedName": "UIKit.UIViewController",
+              "usr": "c:objc(cs)UIViewController"
+            },
+            {
+              "kind": "TypeFunc",
+              "name": "Function",
+              "printedName": "(Swift.String) -> ()",
+              "children": [
+                {
+                  "kind": "TypeNominal",
+                  "name": "Void",
+                  "printedName": "()"
+                },
+                {
+                  "kind": "TypeNominal",
+                  "name": "String",
+                  "printedName": "Swift.String",
+                  "usr": "s:SS"
+                }
+              ]
+            }
+          ],
+          "declKind": "Func",
+          "usr": "s:6vpnold14ConfigPickerVCC7present4from6onPickySo16UIViewControllerC_ySSctFZ",
+          "mangledName": "$s6vpnold14ConfigPickerVCC7present4from6onPickySo16UIViewControllerC_ySSctFZ",
+          "moduleName": "vpnold",
+          "static": true,
+          "declAttributes": [
+            "Custom",
+            "Final",
+            "RawDocComment"
+          ],
+          "funcSelfKind": "NonMutating"
+        },
+        {
+          "kind": "Constructor",
+          "name": "init",
+          "printedName": "init(nibName:bundle:)",
+          "children": [
+            {
+              "kind": "TypeNominal",
+              "name": "ConfigPickerVC",
+              "printedName": "vpnold.ConfigPickerVC",
+              "usr": "c:@M@vpnold@objc(cs)ConfigPickerVC"
+            },
+            {
+              "kind": "TypeNominal",
+              "name": "Optional",
+              "printedName": "Swift.String?",
+              "children": [
+                {
+                  "kind": "TypeNominal",
+                  "name": "String",
+                  "printedName": "Swift.String",
+                  "usr": "s:SS"
+                }
+              ],
+              "usr": "s:Sq"
+            },
+            {
+              "kind": "TypeNominal",
+              "name": "Optional",
+              "printedName": "Foundation.Bundle?",
+              "children": [
+                {
+                  "kind": "TypeNominal",
+                  "name": "Bundle",
+                  "printedName": "Foundation.Bundle",
+                  "usr": "c:objc(cs)NSBundle"
+                }
+              ],
+              "usr": "s:Sq"
+            }
+          ],
+          "declKind": "Constructor",
+          "usr": "c:@M@vpnold@objc(cs)ConfigPickerVC(im)initWithNibName:bundle:",
+          "mangledName": "$s6vpnold14ConfigPickerVCC7nibName6bundleACSSSg_So8NSBundleCSgtcfc",
+          "moduleName": "vpnold",
+          "overriding": true,
+          "implicit": true,
+          "objc_name": "initWithNibName:bundle:",
+          "declAttributes": [
+            "Dynamic",
+            "ObjC",
+            "Custom",
+            "Override"
+          ],
+          "init_kind": "Designated"
+        }
+      ],
+      "declKind": "Class",
+      "usr": "c:@M@vpnold@objc(cs)ConfigPickerVC",
+      "mangledName": "$s6vpnold14ConfigPickerVCC",
+      "moduleName": "vpnold",
+      "declAttributes": [
+        "Custom",
+        "Final",
+        "RawDocComment",
+        "ObjC"
+      ],
+      "superclassUsr": "c:objc(cs)UIViewController",
+      "superclassNames": [
+        "UIKit.UIViewController",
+        "UIKit.UIResponder",
+        "ObjectiveC.NSObject"
+      ],
+      "conformances": [
+        {
+          "kind": "Conformance",
+          "name": "Equatable",
+          "printedName": "Equatable",
+          "usr": "s:SQ",
+          "mangledName": "$sSQ"
+        },
+        {
+          "kind": "Conformance",
+          "name": "Hashable",
+          "printedName": "Hashable",
+          "usr": "s:SH",
+          "mangledName": "$sSH"
+        },
+        {
+          "kind": "Conformance",
+          "name": "CVarArg",
+          "printedName": "CVarArg",
+          "usr": "s:s7CVarArgP",
+          "mangledName": "$ss7CVarArgP"
+        },
+        {
+          "kind": "Conformance",
+          "name": "_KeyValueCodingAndObservingPublishing",
+          "printedName": "_KeyValueCodingAndObservingPublishing",
+          "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+          "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+        },
+        {
+          "kind": "Conformance",
+          "name": "_KeyValueCodingAndObserving",
+          "printedName": "_KeyValueCodingAndObserving",
+          "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+          "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+        },
+        {
+          "kind": "Conformance",
+          "name": "CustomStringConvertible",
+          "printedName": "CustomStringConvertible",
+          "usr": "s:s23CustomStringConvertibleP",
+          "mangledName": "$ss23CustomStringConvertibleP"
+        },
+        {
+          "kind": "Conformance",
+          "name": "CustomDebugStringConvertible",
+          "printedName": "CustomDebugStringConvertible",
+          "usr": "s:s28CustomDebugStringConvertibleP",
+          "mangledName": "$ss28CustomDebugStringConvertibleP"
+        }
+      ]
+    },
+    {
+      "kind": "Import",
+      "name": "Foundation",
+      "printedName": "Foundation",
+      "declKind": "Import",
+      "moduleName": "vpnold"
+    },
+    {
+      "kind": "TypeDecl",
+      "name": "NetDiagnostics",
+      "printedName": "NetDiagnostics",
+      "children": [
+        {
+          "kind": "Function",
+          "name": "resolverScopeTest",
+          "printedName": "resolverScopeTest(emit:finished:)",
+          "children": [
+            {
+              "kind": "TypeNominal",
+              "name": "Void",
+              "printedName": "()"
+            },
+            {
+              "kind": "TypeFunc",
+              "name": "Function",
+              "printedName": "(Swift.String) -> ()",
+              "children": [
+                {
+                  "kind": "TypeNominal",
+                  "name": "Void",
+                  "printedName": "()"
+                },
+                {
+                  "kind": "TypeNominal",
+                  "name": "String",
+                  "printedName": "Swift.String",
+                  "usr": "s:SS"
+                }
+              ]
+            },
+            {
+              "kind": "TypeFunc",
+              "name": "Function",
+              "printedName": "() -> ()",
+              "children": [
+                {
+                  "kind": "TypeNominal",
+                  "name": "Void",
+                  "printedName": "()"
+                },
+                {
+                  "kind": "TypeNominal",
+                  "name": "Void",
+                  "printedName": "()"
+                }
+              ]
+            }
+          ],
+          "declKind": "Func",
+          "usr": "s:6vpnold14NetDiagnosticsO17resolverScopeTest4emit8finishedyySSc_yyctFZ",
+          "mangledName": "$s6vpnold14NetDiagnosticsO17resolverScopeTest4emit8finishedyySSc_yyctFZ",
+          "moduleName": "vpnold",
+          "static": true,
+          "declAttributes": [
+            "RawDocComment"
+          ],
+          "funcSelfKind": "NonMutating"
+        },
+        {
+          "kind": "Function",
+          "name": "run",
+          "printedName": "run(emit:finished:)",
+          "children": [
+            {
+              "kind": "TypeNominal",
+              "name": "Void",
+              "printedName": "()"
+            },
+            {
+              "kind": "TypeFunc",
+              "name": "Function",
+              "printedName": "(Swift.String) -> ()",
+              "children": [
+                {
+                  "kind": "TypeNominal",
+                  "name": "Void",
+                  "printedName": "()"
+                },
+                {
+                  "kind": "TypeNominal",
+                  "name": "String",
+                  "printedName": "Swift.String",
+                  "usr": "s:SS"
+                }
+              ]
+            },
+            {
+              "kind": "TypeFunc",
+              "name": "Function",
+              "printedName": "() -> ()",
+              "children": [
+                {
+                  "kind": "TypeNominal",
+                  "name": "Void",
+                  "printedName": "()"
+                },
+                {
+                  "kind": "TypeNominal",
+                  "name": "Void",
+                  "printedName": "()"
+                }
+              ]
+            }
+          ],
+          "declKind": "Func",
+          "usr": "s:6vpnold14NetDiagnosticsO3run4emit8finishedyySSc_yyctFZ",
+          "mangledName": "$s6vpnold14NetDiagnosticsO3run4emit8finishedyySSc_yyctFZ",
+          "moduleName": "vpnold",
+          "static": true,
+          "declAttributes": [
+            "RawDocComment"
+          ],
+          "funcSelfKind": "NonMutating"
+        }
+      ],
+      "declKind": "Enum",
+      "usr": "s:6vpnold14NetDiagnosticsO",
+      "mangledName": "$s6vpnold14NetDiagnosticsO",
+      "moduleName": "vpnold",
+      "declAttributes": [
+        "RawDocComment"
+      ],
+      "isEnumExhaustive": true,
+      "conformances": [
+        {
+          "kind": "Conformance",
+          "name": "Sendable",
+          "printedName": "Sendable",
+          "usr": "s:s8SendableP",
+          "mangledName": "$ss8SendableP"
         }
       ]
     }

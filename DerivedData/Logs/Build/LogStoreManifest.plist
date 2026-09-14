@@ -5,6 +5,41 @@
 	<key>logFormatVersion</key>
 	<integer>10</integer>
 	<key>logs</key>
-	<dict/>
+	<dict>
+		<key>79BA831A-8B58-40F1-8FCB-5581ED5E5113</key>
+		<dict>
+			<key>className</key>
+			<string>IDECommandLineBuildLog</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>79BA831A-8B58-40F1-8FCB-5581ED5E5113.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>W</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>vpnold project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>vpnold</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Building project vpnold with scheme vpnold and configuration Debug</string>
+			<key>timeStartedRecording</key>
+			<real>810740056.81923699</real>
+			<key>timeStoppedRecording</key>
+			<real>810740063.27013302</real>
+			<key>title</key>
+			<string>Building project vpnold with scheme vpnold and configuration Debug</string>
+			<key>uniqueIdentifier</key>
+			<string>79BA831A-8B58-40F1-8FCB-5581ED5E5113</string>
+		</dict>
+	</dict>
 </dict>
 </plist>

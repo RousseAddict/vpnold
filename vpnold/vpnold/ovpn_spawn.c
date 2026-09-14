@@ -13,6 +13,7 @@
 #include <spawn.h>
 #include <fcntl.h>
 #include <signal.h>
+#include <stdio.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <errno.h>
@@ -23,10 +24,11 @@ extern char **environ;
  *   wrapper — path to the bundled ovpnroot (setuid-root on-device)
  *   bin     — path to the bundled openvpn (exec'd by ovpnroot as root)
  *   cfg     — path to the .ovpn config
+ *   dns     — path to the bundled ovpndns helper (--up/--down script)
  *   logpath — file that receives openvpn's stdout+stderr
  * Returns the child pid (>0) on success, or -errno on failure. */
 int ovpn_spawn(const char *wrapper, const char *bin, const char *cfg,
-               const char *logpath)
+               const char *dns, const char *logpath)
 {
     posix_spawn_file_actions_t fa;
     posix_spawn_file_actions_init(&fa);
@@ -42,6 +44,15 @@ int ovpn_spawn(const char *wrapper, const char *bin, const char *cfg,
      * device type must be given explicitly as "tun" — openvpn only infers
      * tun/tap from names literally starting with "tun"/"tap", so a bare
      * "utun" resolves to an undefined type ("problem with tun vs. tap"). */
+
+    /* openvpn splits the --up/--down parameter itself, so the helper and its
+     * mode travel as a single argv entry. The bundle path comes from the OS and
+     * contains no spaces or quotes. --script-security 2 is what allows openvpn
+     * to call an external executable at all. */
+    char upcmd[1024], downcmd[1024];
+    snprintf(upcmd, sizeof upcmd, "%s up", dns);
+    snprintf(downcmd, sizeof downcmd, "%s down", dns);
+
     char *const argv[] = {
         (char *)wrapper,
         (char *)bin,
@@ -50,6 +61,9 @@ int ovpn_spawn(const char *wrapper, const char *bin, const char *cfg,
         "--dev", "utun",
         "--dev-type", "tun",
         "--management", "127.0.0.1", "7505",
+        "--script-security", "2",
+        "--up", upcmd,
+        "--down", downcmd,
         (char *)0
     };
 

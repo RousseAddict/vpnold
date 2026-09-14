@@ -9,10 +9,13 @@ final class DiagnosticVC: UIViewController, UIAlertViewDelegate {
     private static let rootQueue = DispatchQueue(label: "vpnold.root")
 
     private let log = UITextView()
+    private var logText = ""
     private let uuidLabel = UILabel()
     private let statusLabel = UILabel()
     private let bytesLabel = UILabel()
+    private weak var configButton: UIButton?
     private var ovpnPid: Int32 = 0
+    private var lastBytes: (UInt64, UInt64) = (0, 0)
     private var tailTimer: Timer?
     private var logShown = 0        // bytes of openvpn.log already displayed
     private var shownCrashReport = false
@@ -24,6 +27,7 @@ final class DiagnosticVC: UIViewController, UIAlertViewDelegate {
     private var logPath: String { NSTemporaryDirectory() + "openvpn.log" }
     private var openvpnBin: String { Bundle.main.bundlePath + "/openvpn" }
     private var ovpnrootBin: String { Bundle.main.bundlePath + "/ovpnroot" }
+    private var ovpndnsBin: String { Bundle.main.bundlePath + "/ovpndns" }
 
     /// The `/var/mobile/Applications/<UUID>/` directory name. Changes on every
     /// reinstall, and both helper binaries must be setuid-root again after each
@@ -50,12 +54,15 @@ final class DiagnosticVC: UIViewController, UIAlertViewDelegate {
         view.addSubview(uuidLabel)
         y += 30 + pad
 
-        addButtonRow([("Probe utun", #selector(runProbe)),
-                      ("Fix perms (root)", #selector(fixPermissions))], y: y, height: btnH)
+        addButtonRow([("Fix perms (root)", #selector(fixPermissions)),
+                      ("Net check", #selector(runNetCheck)),
+                      ("DNS scope", #selector(resolverScopeTest))], y: y, height: btnH)
         y += btnH + pad
-        addButtonRow([("Run OpenVPN", #selector(runOpenVPN))], y: y, height: btnH)
+        configButton = addButtonRow([("Config: -", #selector(chooseConfig))],
+                                    y: y, height: btnH).first
         y += btnH + pad
-        addButtonRow([("Stop", #selector(stopOpenVPN))], y: y, height: btnH)
+        addButtonRow([("Run OpenVPN", #selector(runOpenVPN)),
+                      ("Stop", #selector(stopOpenVPN))], y: y, height: btnH)
         y += btnH + pad
 
         for label in [statusLabel, bytesLabel] {
@@ -80,22 +87,29 @@ final class DiagnosticVC: UIViewController, UIAlertViewDelegate {
         view.addSubview(log)
 
         wireManagement()
+        refreshConfigButton()
 
         append("vpnold M4 diagnostic ready.")
         append("openvpn: \(openvpnBin)")
-        append("Tap 'Probe utun' first, then 'Run OpenVPN'.")
+        append("configs found: \(ConfigStore.available().count)")
+        append("Pick a config, then 'Run OpenVPN'.")
     }
 
-    private func addButtonRow(_ items: [(String, Selector)], y: CGFloat, height: CGFloat) {
+    @discardableResult
+    private func addButtonRow(_ items: [(String, Selector)], y: CGFloat,
+                              height: CGFloat) -> [UIButton] {
         let pad: CGFloat = 8
         let total = view.bounds.width - 2 * pad
         let w = (total - pad * CGFloat(items.count - 1)) / CGFloat(items.count)
+        var made = [UIButton]()
         for (i, item) in items.enumerated() {
             let btn = makeButton(item.0, frame: CGRect(x: pad + CGFloat(i) * (w + pad),
                                                        y: y, width: w, height: height))
             btn.addTarget(self, action: item.1, for: .touchUpInside)
             view.addSubview(btn)
+            made.append(btn)
         }
+        return made
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -129,17 +143,15 @@ final class DiagnosticVC: UIViewController, UIAlertViewDelegate {
 
     private func append(_ s: String) { appendRaw(s + "\n") }
 
+    /// Keeps the text in a Swift string and assigns it, rather than reading
+    /// `log.text` back and concatenating. Round-tripping through the UITextView
+    /// on every line is what made "Net check" freeze the UI once openvpn's
+    /// --verb 4 output had made the view large.
     private func appendRaw(_ s: String) {
-        log.text = (log.text ?? "") + s
-        let end = NSRange(location: (log.text as NSString).length, length: 0)
-        log.scrollRangeToVisible(end)
-    }
-
-    @objc private func runProbe() {
-        var buf = [CChar](repeating: 0, count: 256)
-        let rc = utun_probe(&buf, 256)
-        let msg = String(cString: buf)
-        append("[probe] rc=\(rc): \(msg)")
+        guard !s.isEmpty else { return }
+        logText += s
+        log.text = logText
+        log.scrollRangeToVisible(NSRange(location: (logText as NSString).length, length: 0))
     }
 
     // MARK: - setuid-root helpers (replaces the manual SSH chown/chmod)
@@ -195,26 +207,67 @@ final class DiagnosticVC: UIViewController, UIAlertViewDelegate {
         }
     }
 
-    private func findConfig() -> String? {
-        let candidates = [
-            Bundle.main.bundlePath + "/test.ovpn",
-            NSHomeDirectory() + "/Documents/test.ovpn",
-            "/var/mobile/Documents/test.ovpn",
-        ]
-        return candidates.first { FileManager.default.fileExists(atPath: $0) }
+    // MARK: - TEMPORARY: net check (see NetDiagnostics.swift / netdiag.c)
+
+    /// Brackets the check with the tunnel's byte counters. Whether they move
+    /// while the probes run separates "nothing is entering the tunnel" from
+    /// "we send but nothing comes back" from "the tunnel is fine and something
+    /// above it is broken".
+    @objc private func runNetCheck() {
+        let before = lastBytes
+        appendRaw("[net] tunnel bytes before: in \(Self.human(before.0))"
+                + "  out \(Self.human(before.1))\n")
+        NetDiagnostics.run(
+            emit:     { [weak self] block in self?.appendRaw(block) },
+            finished: { [weak self] in
+                guard let self = self else { return }
+                let after = self.lastBytes
+                self.appendRaw("[net] tunnel bytes after:  in \(Self.human(after.0))"
+                             + "  out \(Self.human(after.1))\n")
+                self.appendRaw("[net] delta during check:  in \(Self.human(after.0 - before.0))"
+                             + "  out \(Self.human(after.1 - before.1))\n")
+            })
+    }
+
+    /// TEMPORARY, same lifetime as "Net check". Adds a host route, restarts
+    /// mDNSResponder, re-tests resolution, then removes the route again.
+    @objc private func resolverScopeTest() {
+        NetDiagnostics.resolverScopeTest(
+            emit:     { [weak self] block in self?.appendRaw(block) },
+            finished: { })
+    }
+
+    // MARK: - config selection
+
+    /// Keeps the button title in step with the current selection. The list is
+    /// re-read from disk each time, so configs dropped in over SSH show up
+    /// without reinstalling.
+    private func refreshConfigButton() {
+        let name = (ConfigStore.selected as NSString?)?.lastPathComponent
+        configButton?.setTitle("Config: \(name ?? "none found")", for: .normal)
+    }
+
+    @objc private func chooseConfig() {
+        let count = ConfigStore.available().count
+        ConfigPickerVC.present(from: self) { [weak self] path in
+            guard let self = self else { return }
+            self.refreshConfigButton()
+            self.append("[ovpn] config set to \(path)")
+        }
+        if count == 0 { append("[ovpn] no .ovpn files found — see the list of paths.") }
     }
 
     // MARK: - openvpn process
 
     @objc private func runOpenVPN() {
         guard ovpnPid == 0 else { append("[ovpn] already running (pid \(ovpnPid))"); return }
-        guard let cfg = findConfig() else {
-            append("[ovpn] no test.ovpn found. Put it in the app bundle,")
+        guard let cfg = ConfigStore.selected else {
+            append("[ovpn] no .ovpn file found. Put one in the app bundle,")
             append("       ~/Documents, or /var/mobile/Documents.")
             return
         }
         append("[ovpn] config: \(cfg)")
-        let pid = ovpn_spawn(ovpnrootBin, openvpnBin, cfg, logPath)
+        let pid = ovpn_spawn(ovpnrootBin, openvpnBin, cfg, ovpndnsBin, logPath)
         if pid <= 0 {
             append("[ovpn] spawn failed: errno \(-pid) (\(String(cString: strerror(-pid))))")
             append("       did you setuid-root ovpnroot? see instructions.")
@@ -257,6 +310,7 @@ final class DiagnosticVC: UIViewController, UIAlertViewDelegate {
         tailTimer = nil
         stopManagement()
         statusLabel.text = "state: exited (\(code))"
+        bytesLabel.text = "in: -   out: -"
     }
 
     @objc private func stopOpenVPN() {
@@ -270,12 +324,12 @@ final class DiagnosticVC: UIViewController, UIAlertViewDelegate {
             _ = ovpn_kill(ovpnPid)
             append("[ovpn] SIGTERM sent to pid \(ovpnPid)")
         }
-        ovpnPid = 0
-        tailTimer?.invalidate()
-        tailTimer = nil
-        stopManagement()
-        statusLabel.text = "state: idle"
-        bytesLabel.text = "in: -   out: -"
+        // Deliberately keep tailing and keep ovpnPid set. Everything that
+        // matters on the way out — route deletion, and the `ovpndns down` that
+        // puts the resolver back — is logged AFTER this point, and tailLog() is
+        // what reaps the child. Tearing all that down here hid the entire
+        // shutdown and left openvpn as a zombie.
+        statusLabel.text = "state: stopping..."
     }
 
     // MARK: - management interface
@@ -297,6 +351,7 @@ final class DiagnosticVC: UIViewController, UIAlertViewDelegate {
                                                     : "state: \(state)  \(detail)"
         }
         mgmt.onByteCount = { [weak self] bin, bout in
+            self?.lastBytes = (bin, bout)
             self?.bytesLabel.text = "in: \(Self.human(bin))   out: \(Self.human(bout))"
         }
         mgmt.onLine = { [weak self] line in

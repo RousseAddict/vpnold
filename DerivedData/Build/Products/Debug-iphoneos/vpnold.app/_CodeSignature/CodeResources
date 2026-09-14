@@ -64,6 +64,10 @@
 		<data>
 		pZKyVMDvfbfWYq6ynVqnJd3MBTI=
 		</data>
+		<key>ovpndns</key>
+		<data>
+		V3dka7O2oS20b6t+6sdpH7a5AJE=
+		</data>
 		<key>ovpnroot</key>
 		<data>
 		vurYv4KWe0gqs3XyEnxh7tfu9HI=
@@ -212,6 +216,17 @@
 			<key>hash2</key>
 			<data>
 			HkrigZ9C2bZMFS4VWSAVygGrK4RWXr7/MV6T6tq646A=
+			</data>
+		</dict>
+		<key>ovpndns</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			V3dka7O2oS20b6t+6sdpH7a5AJE=
+			</data>
+			<key>hash2</key>
+			<data>
+			pP8UkkYySw2RClNkDU9qfLNCjxcUoU5YSlNKjJ9qr28=
 			</data>
 		</dict>
 		<key>ovpnroot</key>
