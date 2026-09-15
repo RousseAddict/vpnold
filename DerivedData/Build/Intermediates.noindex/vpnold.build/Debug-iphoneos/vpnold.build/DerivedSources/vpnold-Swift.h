@@ -270,29 +270,59 @@ SWIFT_CLASS("_TtC6vpnold16ManagementClient")
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
+@class UIScrollView;
+
+/// The two things that must be done by hand after every install, explained once.
+/// Neither is discoverable: the app cannot make its own helpers setuid-root, and
+/// it deliberately ships no credentials, so a fresh install always starts unable
+/// to connect. Installing resets both, which is why this is keyed off a
+/// NSUserDefaults flag — the defaults live in the app container, so a reinstall
+/// wipes it and the guide comes back exactly when it is needed again.
+SWIFT_CLASS("_TtC6vpnold12OnboardingVC")
+@interface OnboardingVC : UIViewController <UIScrollViewDelegate>
+- (void)viewDidLoad;
+- (void)viewDidAppear:(BOOL)animated;
+- (void)scrollViewDidEndDecelerating:(UIScrollView * _Nonnull)scrollView;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
+@end
+
 @class UIAlertView;
+
+/// The one-off root chore: make <code>openvpn</code> and <code>ovpnroot</code> setuid-root.
+/// openvpn has to create the utun interface and rewrite the route table, which
+/// needs root, and iOS gives an app no way to ask for it. On a jailbroken device
+/// the answer is a setuid-root helper — but installing the app resets the
+/// ownership and permissions of everything in the bundle, so this has to be
+/// redone after every install. Hence both the onboarding page and the Settings
+/// row, which is why it lives here and not in either of them.
+SWIFT_CLASS("_TtC6vpnold7RootFix")
+@interface RootFix : NSObject <UIAlertViewDelegate>
+- (void)alertView:(UIAlertView * _Nonnull)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
 
 /// Everything that is not “connect / disconnect”.
 /// The VPN screen is for using the VPN; this is for the things around it — the
-/// one-off root chore after a reinstall, the log, and the temporary network
-/// checklist. None of them are needed once a tunnel is working, so they do not
-/// belong on the main screen.
+/// one-off root chore after a reinstall, the setup guide, the log, and the
+/// temporary network checklist. None of them are needed once a tunnel is
+/// working, so they do not belong on the main screen.
 SWIFT_CLASS("_TtC6vpnold10SettingsVC")
-@interface SettingsVC : UIViewController <UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface SettingsVC : UIViewController <UITableViewDataSource, UITableViewDelegate>
 - (void)viewDidLoad;
 - (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
 - (void)tableView:(UITableView * _Nonnull)tableView didSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
-- (void)alertView:(UIAlertView * _Nonnull)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
 /// The VPN screen: pick a config, connect, disconnect, watch the state.
-/// Everything else — the log, the post-reinstall chore, the temporary network
-/// checklist — is behind the Settings button, because none of it is needed once
-/// a tunnel is up.
+/// Everything else — the log, the post-install root chore, the setup guide, the
+/// temporary network checklist — is behind the Settings button, because none of
+/// it is needed once a tunnel is up.
 SWIFT_CLASS("_TtC6vpnold17VPNViewController")
 @interface VPNViewController : UIViewController
 - (void)viewDidLoad;

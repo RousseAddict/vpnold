@@ -52,9 +52,21 @@
 		<data>
 		2smoIdj29vcyg3Rtw8rw2Avqmgw=
 		</data>
+		<key>Icon-60@2x.png</key>
+		<data>
+		SaEMRp421NlsZrm/TrRgrSVpyhQ=
+		</data>
+		<key>Icon.png</key>
+		<data>
+		h/yAEU3rhD8qrHKjGnHLnFpxr/k=
+		</data>
+		<key>Icon@2x.png</key>
+		<data>
+		AoDqfwPyWyyZICayRDY0re5aIKM=
+		</data>
 		<key>Info.plist</key>
 		<data>
-		wm6mknVxnToQkMJVXUphn87ZndI=
+		QLtFefhG5MtWt2f2bbsiF3hQVaA=
 		</data>
 		<key>PkgInfo</key>
 		<data>
@@ -205,6 +217,39 @@
 			<key>hash2</key>
 			<data>
 			SoD193GKJBTodgNcDKsT6dVnkognihVkRZsKQkEym24=
+			</data>
+		</dict>
+		<key>Icon-60@2x.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			SaEMRp421NlsZrm/TrRgrSVpyhQ=
+			</data>
+			<key>hash2</key>
+			<data>
+			Mo0mfPR+sb2HmlnJMzPKzNL+KU5t3jyY6cp7YH/zlDU=
+			</data>
+		</dict>
+		<key>Icon.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			h/yAEU3rhD8qrHKjGnHLnFpxr/k=
+			</data>
+			<key>hash2</key>
+			<data>
+			Ad6Ag8HYrUzxMS1vEhPtRX7F+VjbZLUUOT4aiQdNYtM=
+			</data>
+		</dict>
+		<key>Icon@2x.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			AoDqfwPyWyyZICayRDY0re5aIKM=
+			</data>
+			<key>hash2</key>
+			<data>
+			e6BGBluTUlIyREPKeXCkWAioxh8p69PyXa6CCvFcvwI=
 			</data>
 		</dict>
 		<key>openvpn</key>
