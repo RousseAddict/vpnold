@@ -4120,6 +4120,62 @@
         },
         {
           "kind": "Var",
+          "name": "rootDot",
+          "printedName": "rootDot",
+          "children": [
+            {
+              "kind": "TypeNominal",
+              "name": "UIView",
+              "printedName": "UIKit.UIView",
+              "usr": "c:objc(cs)UIView"
+            }
+          ],
+          "declKind": "Var",
+          "usr": "s:6vpnold10SettingsVCC7rootDot030_5061D1E1B796BB43F113565F98594G1ELLSo6UIViewCvp",
+          "mangledName": "$s6vpnold10SettingsVCC7rootDot030_5061D1E1B796BB43F113565F98594G1ELLSo6UIViewCvp",
+          "moduleName": "vpnold",
+          "isInternal": true,
+          "declAttributes": [
+            "Custom",
+            "HasInitialValue",
+            "Final",
+            "HasStorage",
+            "AccessControl"
+          ],
+          "fixedbinaryorder": 1,
+          "isLet": true,
+          "hasStorage": true
+        },
+        {
+          "kind": "Var",
+          "name": "rootStatus",
+          "printedName": "rootStatus",
+          "children": [
+            {
+              "kind": "TypeNominal",
+              "name": "UILabel",
+              "printedName": "UIKit.UILabel",
+              "usr": "c:objc(cs)UILabel"
+            }
+          ],
+          "declKind": "Var",
+          "usr": "s:6vpnold10SettingsVCC10rootStatus030_5061D1E1B796BB43F113565F98594G1ELLSo7UILabelCvp",
+          "mangledName": "$s6vpnold10SettingsVCC10rootStatus030_5061D1E1B796BB43F113565F98594G1ELLSo7UILabelCvp",
+          "moduleName": "vpnold",
+          "isInternal": true,
+          "declAttributes": [
+            "Custom",
+            "HasInitialValue",
+            "Final",
+            "HasStorage",
+            "AccessControl"
+          ],
+          "fixedbinaryorder": 2,
+          "isLet": true,
+          "hasStorage": true
+        },
+        {
+          "kind": "Var",
           "name": "rows",
           "printedName": "rows",
           "children": [
@@ -4169,7 +4225,7 @@
             "HasStorage",
             "AccessControl"
           ],
-          "fixedbinaryorder": 1,
+          "fixedbinaryorder": 3,
           "isLet": true,
           "hasStorage": true
         },
@@ -4195,6 +4251,38 @@
             "ObjC",
             "Custom",
             "Override"
+          ],
+          "funcSelfKind": "NonMutating"
+        },
+        {
+          "kind": "Function",
+          "name": "viewWillAppear",
+          "printedName": "viewWillAppear(_:)",
+          "children": [
+            {
+              "kind": "TypeNominal",
+              "name": "Void",
+              "printedName": "()"
+            },
+            {
+              "kind": "TypeNominal",
+              "name": "Bool",
+              "printedName": "Swift.Bool",
+              "usr": "s:Sb"
+            }
+          ],
+          "declKind": "Func",
+          "usr": "c:@M@vpnold@objc(cs)SettingsVC(im)viewWillAppear:",
+          "mangledName": "$s6vpnold10SettingsVCC14viewWillAppearyySbF",
+          "moduleName": "vpnold",
+          "overriding": true,
+          "objc_name": "viewWillAppear:",
+          "declAttributes": [
+            "Final",
+            "ObjC",
+            "Custom",
+            "Override",
+            "RawDocComment"
           ],
           "funcSelfKind": "NonMutating"
         },

@@ -311,6 +311,9 @@ SWIFT_CLASS("_TtC6vpnold7RootFix")
 SWIFT_CLASS("_TtC6vpnold10SettingsVC")
 @interface SettingsVC : UIViewController <UITableViewDataSource, UITableViewDelegate>
 - (void)viewDidLoad;
+/// Fixing the permissions, or coming back from the setup guide, changes what
+/// the header says.
+- (void)viewWillAppear:(BOOL)animated;
 - (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
 - (void)tableView:(UITableView * _Nonnull)tableView didSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;

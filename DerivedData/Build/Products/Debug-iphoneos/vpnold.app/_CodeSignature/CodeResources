@@ -72,6 +72,14 @@
 		<data>
 		n57qDP4tZfLD1rCS43W0B4LQjzE=
 		</data>
+		<key>ShieldBar.png</key>
+		<data>
+		HNMU188izm582m7dN8js+WewBxw=
+		</data>
+		<key>ShieldBar@2x.png</key>
+		<data>
+		dkKhGFoOGnupxPFgxT7uDB6oCGs=
+		</data>
 		<key>openvpn</key>
 		<data>
 		pZKyVMDvfbfWYq6ynVqnJd3MBTI=
@@ -250,6 +258,28 @@
 			<key>hash2</key>
 			<data>
 			e6BGBluTUlIyREPKeXCkWAioxh8p69PyXa6CCvFcvwI=
+			</data>
+		</dict>
+		<key>ShieldBar.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			HNMU188izm582m7dN8js+WewBxw=
+			</data>
+			<key>hash2</key>
+			<data>
+			FPjuROaEmSbUDnvjmLjyesXp8EbhJq2feM/6vz9/euU=
+			</data>
+		</dict>
+		<key>ShieldBar@2x.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			dkKhGFoOGnupxPFgxT7uDB6oCGs=
+			</data>
+			<key>hash2</key>
+			<data>
+			DggFVixNkltlwym08DYg5/dVNXE9XKDZn5j4W8XZt6U=
 			</data>
 		</dict>
 		<key>openvpn</key>

@@ -245,6 +245,24 @@ final class VPNViewController: UIViewController {
         stateDot.backgroundColor = phase.colour
         stateLabel.text = phase.headline
         detailLabel.text = detail
+        showShield(phase == .connected)
+    }
+
+    /// A shield in the navigation bar while the tunnel is up, so "am I
+    /// protected?" is answerable at a glance from anywhere in the app.
+    ///
+    /// The *system* status bar cannot be used for this: iOS only puts a VPN
+    /// badge there for tunnels it owns via NetworkExtension, which is iOS 8+ and
+    /// does not exist here, and no app may draw into the status bar itself.
+    private func showShield(_ on: Bool) {
+        guard on else {
+            navigationItem.leftBarButtonItem = nil
+            return
+        }
+        guard navigationItem.leftBarButtonItem == nil else { return }
+        let iv = UIImageView(image: UIImage(named: "ShieldBar"))
+        iv.frame = CGRect(x: 0, y: 0, width: 22, height: 22)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: iv)
     }
 
     /// openvpn reports a dozen states on the way up; they are all "connecting"

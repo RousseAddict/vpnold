@@ -9,6 +9,8 @@ import UIKit
 final class SettingsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     private let table = UITableView()
+    private let rootDot = UIView()
+    private let rootStatus = UILabel()
 
     private let rows: [(title: String, detail: String, action: Selector)] = [
         ("Fix permissions", "chown root + chmod 4755 on openvpn and ovpnroot",
@@ -42,21 +44,82 @@ final class SettingsVC: UIViewController, UITableViewDataSource, UITableViewDele
         table.separatorColor = UIColor(white: 0.25, alpha: 1)
         table.tableHeaderView = makeHeader()
         view.addSubview(table)
+        refreshRootStatus()
     }
 
+    /// Fixing the permissions, or coming back from the setup guide, changes what
+    /// the header says.
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        refreshRootStatus()
+    }
+
+    /// The app directory plus the one fact that makes it worth showing: whether
+    /// the helpers in it are still setuid-root. Both change together — every
+    /// install moves the directory and strips the setuid bit — so they belong in
+    /// one card rather than as a note the user has to interpret.
     private func makeHeader() -> UIView {
-        let header = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 64))
+        let width = view.bounds.width
+        let header = UIView(frame: CGRect(x: 0, y: 0, width: width, height: 116))
         header.backgroundColor = UIColor.clear
-        let label = UILabel(frame: header.bounds.insetBy(dx: 12, dy: 8))
-        label.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        label.backgroundColor = UIColor.clear
-        label.numberOfLines = 3
-        label.font = UIFont(name: "Courier", size: 10)
-        label.textColor = UIColor(white: 0.6, alpha: 1)
-        label.text = "app dir:\n\(appUUID)\n"
-                   + "(changes on every reinstall — re-run Fix permissions)"
-        header.addSubview(label)
+
+        let card = UIView(frame: CGRect(x: 12, y: 12, width: width - 24, height: 92))
+        card.autoresizingMask = [.flexibleWidth]
+        card.backgroundColor = UIColor(white: 0.12, alpha: 1)
+        card.layer.cornerRadius = 8
+        header.addSubview(card)
+
+        let inner = card.bounds.width - 28
+
+        let caption = UILabel(frame: CGRect(x: 14, y: 10, width: inner, height: 12))
+        caption.autoresizingMask = [.flexibleWidth]
+        caption.backgroundColor = UIColor.clear
+        caption.font = UIFont.boldSystemFont(ofSize: 10)
+        caption.textColor = UIColor(white: 0.45, alpha: 1)
+        caption.text = "APP DIRECTORY — NEW ON EVERY REINSTALL"
+        caption.adjustsFontSizeToFitWidth = true
+        caption.minimumScaleFactor = 0.7
+        card.addSubview(caption)
+
+        let uuid = UILabel(frame: CGRect(x: 14, y: 26, width: inner, height: 28))
+        uuid.autoresizingMask = [.flexibleWidth]
+        uuid.backgroundColor = UIColor.clear
+        uuid.numberOfLines = 2
+        uuid.font = UIFont(name: "Courier", size: 11)
+        uuid.textColor = UIColor(white: 0.85, alpha: 1)
+        uuid.adjustsFontSizeToFitWidth = true
+        uuid.minimumScaleFactor = 0.6
+        uuid.text = appUUID
+        card.addSubview(uuid)
+
+        let divider = UIView(frame: CGRect(x: 14, y: 60, width: inner, height: 1))
+        divider.autoresizingMask = [.flexibleWidth]
+        divider.backgroundColor = UIColor(white: 0.22, alpha: 1)
+        card.addSubview(divider)
+
+        rootDot.frame = CGRect(x: 14, y: 73, width: 8, height: 8)
+        rootDot.layer.cornerRadius = 4
+        card.addSubview(rootDot)
+
+        rootStatus.frame = CGRect(x: 30, y: 67, width: inner - 16, height: 20)
+        rootStatus.autoresizingMask = [.flexibleWidth]
+        rootStatus.backgroundColor = UIColor.clear
+        rootStatus.font = UIFont.systemFont(ofSize: 12)
+        rootStatus.adjustsFontSizeToFitWidth = true
+        rootStatus.minimumScaleFactor = 0.8
+        card.addSubview(rootStatus)
+
         return header
+    }
+
+    private func refreshRootStatus() {
+        let ok = RootFix.helpersAreSetuid
+        rootDot.backgroundColor = ok ? UIColor(red: 0.35, green: 0.85, blue: 0.45, alpha: 1)
+                                     : UIColor(red: 0.95, green: 0.68, blue: 0.25, alpha: 1)
+        rootStatus.text = ok ? "openvpn and ovpnroot are setuid-root"
+                             : "Not setuid-root yet — tap Fix permissions"
+        rootStatus.textColor = ok ? UIColor(white: 0.75, alpha: 1)
+                                  : UIColor(red: 0.95, green: 0.68, blue: 0.25, alpha: 1)
     }
 
     // MARK: - actions
@@ -77,7 +140,10 @@ final class SettingsVC: UIViewController, UITableViewDataSource, UITableViewDele
     }
 
     @objc private func fixPermissions() {
-        RootFix.prompt(from: self) { [weak self] rc in self?.showResult(rc) }
+        RootFix.prompt(from: self) { [weak self] rc in
+            self?.refreshRootStatus()
+            self?.showResult(rc)
+        }
     }
 
     /// The log is a screen away now, so say how it went here too.

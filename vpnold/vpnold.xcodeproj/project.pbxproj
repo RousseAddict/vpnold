@@ -24,6 +24,8 @@
 		DD0000000000000000000056 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DD0000000000000000000057 /* Icon.png */; };
 		DD0000000000000000000058 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DD0000000000000000000059 /* Icon@2x.png */; };
 		DD0000000000000000000060 /* Icon-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DD0000000000000000000061 /* Icon-60@2x.png */; };
+		DD0000000000000000000062 /* ShieldBar.png in Resources */ = {isa = PBXBuildFile; fileRef = DD0000000000000000000063 /* ShieldBar.png */; };
+		DD0000000000000000000064 /* ShieldBar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DD0000000000000000000065 /* ShieldBar@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +47,8 @@
 		DD0000000000000000000057 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		DD0000000000000000000059 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		DD0000000000000000000061 /* Icon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-60@2x.png"; sourceTree = "<group>"; };
+		DD0000000000000000000063 /* ShieldBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ShieldBar.png; sourceTree = "<group>"; };
+		DD0000000000000000000065 /* ShieldBar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ShieldBar@2x.png"; sourceTree = "<group>"; };
 		DD0000000000000000000014 /* vpnold-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "vpnold-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -91,6 +95,8 @@
 				DD0000000000000000000057 /* Icon.png */,
 				DD0000000000000000000059 /* Icon@2x.png */,
 				DD0000000000000000000061 /* Icon-60@2x.png */,
+				DD0000000000000000000063 /* ShieldBar.png */,
+				DD0000000000000000000065 /* ShieldBar@2x.png */,
 				DD0000000000000000000017 /* crash_trap.c */,
 				DD0000000000000000000034 /* netdiag.c */,
 				DD0000000000000000000013 /* ovpn_spawn.c */,
@@ -161,6 +167,8 @@
 				DD0000000000000000000056 /* Icon.png in Resources */,
 				DD0000000000000000000058 /* Icon@2x.png in Resources */,
 				DD0000000000000000000060 /* Icon-60@2x.png in Resources */,
+				DD0000000000000000000062 /* ShieldBar.png in Resources */,
+				DD0000000000000000000064 /* ShieldBar@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
