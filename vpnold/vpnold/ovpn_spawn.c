@@ -57,7 +57,9 @@ int ovpn_spawn(const char *wrapper, const char *bin, const char *cfg,
         (char *)wrapper,
         (char *)bin,
         "--config", (char *)cfg,
-        "--verb", "4",
+        /* 3 is the default: connection progress and errors, without the
+         * ~300-line settings dump --verb 4 prints before every connection. */
+        "--verb", "3",
         "--dev", "utun",
         "--dev-type", "tun",
         "--management", "127.0.0.1", "7505",

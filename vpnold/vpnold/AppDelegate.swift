@@ -10,7 +10,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         CrashReport.beginSession()
 
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = DiagnosticVC()
+        // Navigation controller so Settings can be pushed off the VPN screen.
+        let nav = UINavigationController(rootViewController: VPNViewController())
+        nav.navigationBar.barStyle = .black
+        window?.rootViewController = nav
         window?.makeKeyAndVisible()
         CrashReport.stage("window-visible")
         return true

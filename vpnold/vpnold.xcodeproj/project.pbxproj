@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		DD0000000000000000000020 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0000000000000000000010 /* AppDelegate.swift */; };
-		DD0000000000000000000021 /* DiagnosticVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0000000000000000000011 /* DiagnosticVC.swift */; };
+		DD0000000000000000000021 /* VPNViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0000000000000000000011 /* VPNViewController.swift */; };
 		DD0000000000000000000024 /* ManagementClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0000000000000000000015 /* ManagementClient.swift */; };
 		DD0000000000000000000023 /* ovpn_spawn.c in Sources */ = {isa = PBXBuildFile; fileRef = DD0000000000000000000013 /* ovpn_spawn.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		DD0000000000000000000025 /* root_helper.c in Sources */ = {isa = PBXBuildFile; fileRef = DD0000000000000000000016 /* root_helper.c */; settings = {COMPILER_FLAGS = "-w"; }; };
@@ -18,12 +18,13 @@
 		DD0000000000000000000029 /* ConfigPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0000000000000000000030 /* ConfigPicker.swift */; };
 		DD0000000000000000000031 /* NetDiagnostics.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0000000000000000000032 /* NetDiagnostics.swift */; };
 		DD0000000000000000000033 /* netdiag.c in Sources */ = {isa = PBXBuildFile; fileRef = DD0000000000000000000034 /* netdiag.c */; settings = {COMPILER_FLAGS = "-w"; }; };
+		DD0000000000000000000050 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0000000000000000000051 /* SettingsVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		DD0000000000000000000006 /* vpnold.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = vpnold.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD0000000000000000000010 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		DD0000000000000000000011 /* DiagnosticVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosticVC.swift; sourceTree = "<group>"; };
+		DD0000000000000000000011 /* VPNViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VPNViewController.swift; sourceTree = "<group>"; };
 		DD0000000000000000000013 /* ovpn_spawn.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ovpn_spawn.c; sourceTree = "<group>"; };
 		DD0000000000000000000015 /* ManagementClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagementClient.swift; sourceTree = "<group>"; };
 		DD0000000000000000000016 /* root_helper.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = root_helper.c; sourceTree = "<group>"; };
@@ -33,6 +34,7 @@
 		DD0000000000000000000030 /* ConfigPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigPicker.swift; sourceTree = "<group>"; };
 		DD0000000000000000000032 /* NetDiagnostics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetDiagnostics.swift; sourceTree = "<group>"; };
 		DD0000000000000000000034 /* netdiag.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = netdiag.c; sourceTree = "<group>"; };
+		DD0000000000000000000051 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		DD0000000000000000000014 /* vpnold-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "vpnold-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -67,12 +69,13 @@
 			isa = PBXGroup;
 			children = (
 				DD0000000000000000000010 /* AppDelegate.swift */,
-				DD0000000000000000000011 /* DiagnosticVC.swift */,
+				DD0000000000000000000011 /* VPNViewController.swift */,
 				DD0000000000000000000015 /* ManagementClient.swift */,
 				DD0000000000000000000018 /* CrashReport.swift */,
 				DD0000000000000000000019 /* LogViewController.swift */,
 				DD0000000000000000000030 /* ConfigPicker.swift */,
 				DD0000000000000000000032 /* NetDiagnostics.swift */,
+				DD0000000000000000000051 /* SettingsVC.swift */,
 				DD0000000000000000000017 /* crash_trap.c */,
 				DD0000000000000000000034 /* netdiag.c */,
 				DD0000000000000000000013 /* ovpn_spawn.c */,
@@ -151,7 +154,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DD0000000000000000000020 /* AppDelegate.swift in Sources */,
-				DD0000000000000000000021 /* DiagnosticVC.swift in Sources */,
+				DD0000000000000000000021 /* VPNViewController.swift in Sources */,
 				DD0000000000000000000024 /* ManagementClient.swift in Sources */,
 				DD0000000000000000000023 /* ovpn_spawn.c in Sources */,
 				DD0000000000000000000025 /* root_helper.c in Sources */,
@@ -161,6 +164,7 @@
 				DD0000000000000000000029 /* ConfigPicker.swift in Sources */,
 				DD0000000000000000000031 /* NetDiagnostics.swift in Sources */,
 				DD0000000000000000000033 /* netdiag.c in Sources */,
+				DD0000000000000000000050 /* SettingsVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

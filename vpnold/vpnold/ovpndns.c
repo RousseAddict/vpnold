@@ -30,10 +30,14 @@
  * en0.
  *
  * So we do not borrow the wifi service. We publish utun0 as a service of its
- * own, put the DNS under it, and make it primary — which is what a real VPN
- * client does, and keeps every query inside the tunnel. Everything we overwrite
- * is saved first and put back on the way down; and as the dynamic store lives
- * only in configd's memory, a reboot restores it regardless.
+ * own and put the DNS under it, marked SUPPLEMENTAL with an empty match domain
+ * — the split-DNS mechanism, which matches every name. configd hands a
+ * supplemental resolver to mDNSResponder with no if_index, so it is not pinned
+ * at all and its queries follow the routing table straight into the tunnel.
+ * (Claiming the primary service instead does not work: IPMonitor recomputes
+ * State:/Network/Global/IPv4 and puts en0 back immediately.) Everything we
+ * overwrite is saved first and put back on the way down; and as the dynamic
+ * store lives only in configd's memory, a reboot restores it regardless.
  *
  * SystemConfiguration's SCDynamicStore API is absent from the public iOS SDK
  * (no headers, and the stub library may not export it), so the four functions
@@ -310,7 +314,6 @@ static int do_up(SCDynamicStoreRef store, int argc, char **argv)
             CFArrayCreateMutable(NULL, 0, &kCFTypeArrayCallBacks);
         backup_add(backup, store, ipv4_key);
         backup_add(backup, store, dns_key);
-        backup_add(backup, store, CFSTR("State:/Network/Global/IPv4"));
         backup_add(backup, store, CFSTR("State:/Network/Global/DNS"));
         if (old_key)
             backup_add(backup, store, old_key);
@@ -365,9 +368,9 @@ static int do_up(SCDynamicStoreRef store, int argc, char **argv)
      * domain — which matches every name. This is the mechanism macOS uses for
      * VPN split-DNS, and it is how we get used without having to be the primary
      * service: configd hands mDNSResponder a match-all resolver that is still
-     * attached to this service, and therefore still scoped to utun0. Needed
-     * because IPMonitor recomputes State:/Network/Global/IPv4 from the services
-     * it manages and puts en0 back as primary, undoing step 3 below. */
+     * attached to this service. A supplemental resolver is handed out with no
+     * if_index at all, so mDNSResponder does not pin its socket and the query
+     * follows the routing table into the tunnel — which is the whole fix. */
     CFMutableDictionaryRef vpn_dns = CFDictionaryCreateMutableCopy(NULL, 0, dns);
     CFArrayRef match = one_str("");
     CFDictionarySetValue(vpn_dns, CFSTR("SupplementalMatchDomains"), match);
@@ -382,21 +385,12 @@ static int do_up(SCDynamicStoreRef store, int argc, char **argv)
     CFRelease(orders);
     CFRelease(order);
 
-    /* 3. Make it primary. configd's IPMonitor normally owns the Global keys and
-     *    recomputes them from the services it knows about; ours is not in the
-     *    Setup: domain, so it may not be ranked at all and we set them
-     *    ourselves. If IPMonitor overwrites us, `ovpndns show` will say so. */
-    CFMutableDictionaryRef global =
-        CFDictionaryCreateMutable(NULL, 0, &kCFTypeDictionaryKeyCallBacks,
-                                  &kCFTypeDictionaryValueCallBacks);
-    CFDictionarySetValue(global, CFSTR("PrimaryService"), CFSTR(VPN_SERVICE_ID));
-    dict_set_str(global, CFSTR("PrimaryInterface"), dev);
-    if (gw)
-        dict_set_str(global, CFSTR("Router"), gw);
-
+    /* State:/Network/Global/IPv4 is deliberately left alone: IPMonitor owns it,
+     * recomputes it from the services it manages, and put en0 straight back
+     * every time we claimed it. The supplemental resolver above is what makes
+     * that not matter. */
     Boolean ok = sc_set(store, ipv4_key, ipv4);
     ok &= sc_set(store, dns_key, vpn_dns);
-    ok &= sc_set(store, CFSTR("State:/Network/Global/IPv4"), global);
     ok &= sc_set(store, CFSTR("State:/Network/Global/DNS"), dns);
     if (old_key)
         ok &= sc_set(store, old_key, dns);
@@ -405,7 +399,6 @@ static int do_up(SCDynamicStoreRef store, int argc, char **argv)
     say_cf("applied DNS", vpn_dns);
     printf("ovpndns: SCDynamicStoreSetValue %s\n", ok ? "OK" : "FAILED");
 
-    CFRelease(global);
     CFRelease(vpn_dns);
     CFRelease(dns);
     CFRelease(ipv4);
@@ -491,9 +484,9 @@ static int do_show(SCDynamicStoreRef store)
         CFRelease(key);
     }
 
-    /* Our own service. If Global/IPv4 above still names en0 while these two are
-     * populated, configd's IPMonitor has taken the primary back from us and the
-     * resolver is scoped to wifi again — which is the failure mode to look for. */
+    /* Our own service. Global/IPv4 above will still name en0 — that is expected
+     * and harmless; what matters is that the DNS here carries
+     * SupplementalMatchDomains, which is what keeps it unpinned. */
     key = vpn_key("IPv4");
     v = sc_copy(store, key);
     say_cf("vpn service IPv4", v);

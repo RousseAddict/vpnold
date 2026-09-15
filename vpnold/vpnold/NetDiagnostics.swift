@@ -131,58 +131,12 @@ enum NetDiagnostics {
         ]
     }
 
-    /// Decides whether mDNSResponder really scopes its queries to en0.
-    ///
-    /// Step 12 of the checklist shows that an en0-pinned socket cannot even send
-    /// to an off-LAN address while 0/1/128.0/1 point at utun0 — it fails with
-    /// EADDRNOTAVAIL. That explains the resolver's failure *if* it scopes to
-    /// en0, which is still an inference. This settles it: give 94.140.14.14 a
-    /// real en0 route, so an en0-scoped send becomes possible, and see whether
-    /// the system resolver springs back to life. If it does, scoping is the bug.
-    ///
-    /// Separate from `run` because it is not read-only: it briefly adds a host
-    /// route that sends queries for that ONE server outside the tunnel, and it
-    /// restarts a system daemon. The route is removed again in the last steps.
-    static func resolverScopeTest(emit: @escaping (String) -> Void,
-                                  finished: @escaping () -> Void) {
-        let root = Bundle.main.bundlePath + "/ovpnroot"
-        let dnsServer = "94.140.14.14"
-        let gateway = "192.168.0.1"
-        runSteps([
-            .shell(title: "1. TEMPORARILY route \(dnsServer) out en0 (leaves the tunnel)",
-                   command: "'\(root)' /sbin/route add -host \(dnsServer) \(gateway)"),
-            .shell(title: "2. the route",
-                   command: "netstat -rn -f inet | grep '\(dnsServer)'"),
-            // Was EADDRNOTAVAIL in step 12; if it answers now, the only thing
-            // that changed is that en0 has a route to this server.
-            .dns(title: "3. en0-pinned query, now that en0 has a route",
-                 server: dnsServer, name: "example.com", tcp: false, iface: "en0"),
-            // Restart so it re-reads config and drops any cached failure.
-            .shell(title: "4. restart mDNSResponder as root",
-                   command: "'\(root)' /usr/bin/killall mDNSResponder; echo rc=$?"),
-            .shell(title: "5. let launchd respawn it",
-                   command: "sleep 3; ps ax | grep [m]DNSResponder"),
-            // The verdict.
-            .probe(title: "6. system resolver, with the server reachable on en0",
-                   host: "example.com", hostHeader: nil, port: 80, path: nil),
-            .shell(title: "7. remove the temporary route",
-                   command: "'\(root)' /sbin/route delete -host \(dnsServer) \(gateway)"),
-            .shell(title: "8. confirm it is gone (no output = gone)",
-                   command: "netstat -rn -f inet | grep '\(dnsServer)'"),
-        ], label: "resolver scope test", emit: emit, finished: finished)
-    }
-
     /// Runs the checklist. `emit` and `finished` are always called on the main
     /// thread; `emit` gets a block of text that already ends in a newline.
     static func run(emit: @escaping (String) -> Void,
                     finished: @escaping () -> Void) {
-        runSteps(steps(), label: "check", emit: emit, finished: finished)
-    }
-
-    private static func runSteps(_ all: [Step], label: String,
-                                 emit: @escaping (String) -> Void,
-                                 finished: @escaping () -> Void) {
-        emit("[net] ---- \(label) start (\(all.count) steps) ----\n")
+        let all = steps()
+        emit("[net] ---- check start (\(all.count) steps) ----\n")
 
         queue.async {
             for step in all {
@@ -215,7 +169,7 @@ enum NetDiagnostics {
                 DispatchQueue.main.async { emit(block) }
             }
             DispatchQueue.main.async {
-                emit("[net] ---- \(label) done ----\n")
+                emit("[net] ---- check done ----\n")
                 finished()
             }
         }

@@ -246,23 +246,13 @@ SWIFT_CLASS("_TtC6vpnold14ConfigPickerVC")
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
 @end
 
-@class UIAlertView;
-
-SWIFT_CLASS("_TtC6vpnold12DiagnosticVC")
-@interface DiagnosticVC : UIViewController <UIAlertViewDelegate>
-- (void)viewDidLoad;
-- (void)viewDidAppear:(BOOL)animated;
-- (void)alertView:(UIAlertView * _Nonnull)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
-- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
-@end
-
 
 SWIFT_CLASS("_TtC6vpnold17LogViewController")
 @interface LogViewController : UIViewController
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
 - (void)viewDidLoad;
 - (void)viewDidAppear:(BOOL)animated;
+- (void)viewWillDisappear:(BOOL)animated;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
 @end
 
@@ -278,6 +268,37 @@ SWIFT_CLASS("_TtC6vpnold16ManagementClient")
 @interface ManagementClient : NSObject <NSStreamDelegate>
 - (void)stream:(NSStream * _Nonnull)aStream handleEvent:(NSStreamEvent)eventCode;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+@class UIAlertView;
+
+/// Everything that is not “connect / disconnect”.
+/// The VPN screen is for using the VPN; this is for the things around it — the
+/// one-off root chore after a reinstall, the log, and the temporary network
+/// checklist. None of them are needed once a tunnel is working, so they do not
+/// belong on the main screen.
+SWIFT_CLASS("_TtC6vpnold10SettingsVC")
+@interface SettingsVC : UIViewController <UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
+- (void)viewDidLoad;
+- (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
+- (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
+- (void)tableView:(UITableView * _Nonnull)tableView didSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
+- (void)alertView:(UIAlertView * _Nonnull)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+/// The VPN screen: pick a config, connect, disconnect, watch the state.
+/// Everything else — the log, the post-reinstall chore, the temporary network
+/// checklist — is behind the Settings button, because none of it is needed once
+/// a tunnel is up.
+SWIFT_CLASS("_TtC6vpnold17VPNViewController")
+@interface VPNViewController : UIViewController
+- (void)viewDidLoad;
+- (void)viewDidAppear:(BOOL)animated;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
 @end
 
 #if __has_attribute(external_source_symbol)

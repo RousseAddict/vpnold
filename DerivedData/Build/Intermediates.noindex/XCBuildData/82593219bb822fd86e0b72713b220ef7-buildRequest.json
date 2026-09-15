@@ -1,0 +1,78 @@
+{
+  "_buildCommand2" : {
+    "command" : "build",
+    "skipDependencies" : false,
+    "style" : "buildOnly"
+  },
+  "buildCommand" : "build",
+  "configuredTargets" : [
+    {
+      "guid" : "15d9f220eba350cb90ddc57a24b182361f63db98faae44769ec99efafd5c9b89"
+    }
+  ],
+  "containerPath" : "/Users/srv-admin/Documents/ios6-app/vpnold/vpnold/vpnold.xcodeproj",
+  "continueBuildingAfterErrors" : false,
+  "enableIndexBuildArena" : false,
+  "hideShellScriptEnvironment" : false,
+  "parameters" : {
+    "action" : "build",
+    "activeArchitecture" : "arm64e",
+    "activeRunDestination" : {
+      "disableOnlyActiveArch" : true,
+      "platform" : "iphoneos",
+      "sdk" : "iphoneos15.2",
+      "sdkVariant" : "iphoneos",
+      "supportedArchitectures" : [
+        "armv4t",
+        "armv5",
+        "armv6",
+        "armv7",
+        "armv7f",
+        "armv7s",
+        "armv7k",
+        "arm64",
+        "arm64e"
+      ],
+      "targetArchitecture" : "arm64e"
+    },
+    "arenaInfo" : {
+      "buildIntermediatesPath" : "/Users/srv-admin/Documents/ios6-app/vpnold/DerivedData/Build/Intermediates.noindex",
+      "buildProductsPath" : "/Users/srv-admin/Documents/ios6-app/vpnold/DerivedData/Build/Products",
+      "derivedDataPath" : "/Users/srv-admin/Documents/ios6-app/vpnold/DerivedData",
+      "indexDataStoreFolderPath" : "/Users/srv-admin/Documents/ios6-app/vpnold/DerivedData/Index/DataStore",
+      "indexEnableDataStore" : true,
+      "indexPCHPath" : "/Users/srv-admin/Documents/ios6-app/vpnold/DerivedData/Index/PrecompiledHeaders",
+      "pchPath" : "/Users/srv-admin/Documents/ios6-app/vpnold/DerivedData/Build/Intermediates.noindex/PrecompiledHeaders"
+    },
+    "configurationName" : "Debug",
+    "overrides" : {
+      "commandLine" : {
+        "table" : {
+          "ARCHS" : "armv7",
+          "CODE_SIGN_IDENTITY" : "",
+          "CODE_SIGNING_ALLOWED" : "NO",
+          "CODE_SIGNING_REQUIRED" : "NO",
+          "ONLY_ACTIVE_ARCH" : "NO",
+          "SDKROOT" : "iphoneos15.2",
+          "TOOLCHAINS" : "org.swift.563202208261a",
+          "VALID_ARCHS" : "armv7"
+        }
+      },
+      "synthesized" : {
+        "table" : {
+          "ACTION" : "build",
+          "ENABLE_PREVIEWS" : "NO"
+        }
+      },
+      "toolchainOverride" : "org.swift.563202208261a"
+    }
+  },
+  "schemeCommand" : "launch",
+  "schemeCommand2" : "launch",
+  "shouldCollectMetrics" : false,
+  "showNonLoggedProgress" : true,
+  "useDryRun" : false,
+  "useImplicitDependencies" : true,
+  "useLegacyBuildLocations" : false,
+  "useParallelTargets" : true
+}
