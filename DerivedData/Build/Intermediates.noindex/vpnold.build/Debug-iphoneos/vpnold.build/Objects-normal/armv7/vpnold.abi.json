@@ -850,6 +850,69 @@
           "hasStorage": true
         },
         {
+          "kind": "Var",
+          "name": "pendingRealm",
+          "printedName": "pendingRealm",
+          "children": [
+            {
+              "kind": "TypeNominal",
+              "name": "Optional",
+              "printedName": "Swift.String?",
+              "children": [
+                {
+                  "kind": "TypeNominal",
+                  "name": "String",
+                  "printedName": "Swift.String",
+                  "usr": "s:SS"
+                }
+              ],
+              "usr": "s:Sq"
+            }
+          ],
+          "declKind": "Var",
+          "usr": "s:6vpnold17VPNViewControllerC12pendingRealm33_BD749D5F6DE38B1113044684C9065497LLSSSgvp",
+          "mangledName": "$s6vpnold17VPNViewControllerC12pendingRealm33_BD749D5F6DE38B1113044684C9065497LLSSSgvp",
+          "moduleName": "vpnold",
+          "isInternal": true,
+          "declAttributes": [
+            "Custom",
+            "HasInitialValue",
+            "Final",
+            "HasStorage",
+            "AccessControl",
+            "RawDocComment"
+          ],
+          "fixedbinaryorder": 16,
+          "hasStorage": true
+        },
+        {
+          "kind": "Var",
+          "name": "pendingNeedsUsername",
+          "printedName": "pendingNeedsUsername",
+          "children": [
+            {
+              "kind": "TypeNominal",
+              "name": "Bool",
+              "printedName": "Swift.Bool",
+              "usr": "s:Sb"
+            }
+          ],
+          "declKind": "Var",
+          "usr": "s:6vpnold17VPNViewControllerC20pendingNeedsUsername33_BD749D5F6DE38B1113044684C9065497LLSbvp",
+          "mangledName": "$s6vpnold17VPNViewControllerC20pendingNeedsUsername33_BD749D5F6DE38B1113044684C9065497LLSbvp",
+          "moduleName": "vpnold",
+          "isInternal": true,
+          "declAttributes": [
+            "Custom",
+            "HasInitialValue",
+            "Final",
+            "HasStorage",
+            "AccessControl"
+          ],
+          "fixedbinaryorder": 17,
+          "hasStorage": true
+        },
+        {
           "kind": "Function",
           "name": "viewDidLoad",
           "printedName": "viewDidLoad()",
@@ -902,6 +965,42 @@
             "ObjC",
             "Custom",
             "Override"
+          ],
+          "funcSelfKind": "NonMutating"
+        },
+        {
+          "kind": "Function",
+          "name": "alertView",
+          "printedName": "alertView(_:clickedButtonAt:)",
+          "children": [
+            {
+              "kind": "TypeNominal",
+              "name": "Void",
+              "printedName": "()"
+            },
+            {
+              "kind": "TypeNominal",
+              "name": "UIAlertView",
+              "printedName": "UIKit.UIAlertView",
+              "usr": "c:objc(cs)UIAlertView"
+            },
+            {
+              "kind": "TypeNominal",
+              "name": "Int",
+              "printedName": "Swift.Int",
+              "usr": "s:Si"
+            }
+          ],
+          "declKind": "Func",
+          "usr": "c:@M@vpnold@objc(cs)VPNViewController(im)alertView:clickedButtonAtIndex:",
+          "mangledName": "$s6vpnold17VPNViewControllerC9alertView_15clickedButtonAtySo07UIAlertE0C_SitF",
+          "moduleName": "vpnold",
+          "objc_name": "alertView:clickedButtonAtIndex:",
+          "declAttributes": [
+            "Final",
+            "ObjC",
+            "Custom",
+            "RawDocComment"
           ],
           "funcSelfKind": "NonMutating"
         },
@@ -1791,6 +1890,791 @@
         },
         {
           "kind": "Var",
+          "name": "onReady",
+          "printedName": "onReady",
+          "children": [
+            {
+              "kind": "TypeNominal",
+              "name": "Optional",
+              "printedName": "(() -> ())?",
+              "children": [
+                {
+                  "kind": "TypeFunc",
+                  "name": "Function",
+                  "printedName": "() -> ()",
+                  "children": [
+                    {
+                      "kind": "TypeNominal",
+                      "name": "Void",
+                      "printedName": "()"
+                    },
+                    {
+                      "kind": "TypeNominal",
+                      "name": "Void",
+                      "printedName": "()"
+                    }
+                  ]
+                }
+              ],
+              "usr": "s:Sq"
+            }
+          ],
+          "declKind": "Var",
+          "usr": "s:6vpnold16ManagementClientC7onReadyyycSgvp",
+          "mangledName": "$s6vpnold16ManagementClientC7onReadyyycSgvp",
+          "moduleName": "vpnold",
+          "declAttributes": [
+            "HasInitialValue",
+            "Final",
+            "HasStorage",
+            "RawDocComment"
+          ],
+          "fixedbinaryorder": 4,
+          "hasStorage": true,
+          "accessors": [
+            {
+              "kind": "Accessor",
+              "name": "Get",
+              "printedName": "Get()",
+              "children": [
+                {
+                  "kind": "TypeNominal",
+                  "name": "Optional",
+                  "printedName": "(() -> ())?",
+                  "children": [
+                    {
+                      "kind": "TypeFunc",
+                      "name": "Function",
+                      "printedName": "() -> ()",
+                      "children": [
+                        {
+                          "kind": "TypeNominal",
+                          "name": "Void",
+                          "printedName": "()"
+                        },
+                        {
+                          "kind": "TypeNominal",
+                          "name": "Void",
+                          "printedName": "()"
+                        }
+                      ]
+                    }
+                  ],
+                  "usr": "s:Sq"
+                }
+              ],
+              "declKind": "Accessor",
+              "usr": "s:6vpnold16ManagementClientC7onReadyyycSgvg",
+              "mangledName": "$s6vpnold16ManagementClientC7onReadyyycSgvg",
+              "moduleName": "vpnold",
+              "implicit": true,
+              "declAttributes": [
+                "Final"
+              ],
+              "accessorKind": "get"
+            },
+            {
+              "kind": "Accessor",
+              "name": "Set",
+              "printedName": "Set()",
+              "children": [
+                {
+                  "kind": "TypeNominal",
+                  "name": "Void",
+                  "printedName": "()"
+                },
+                {
+                  "kind": "TypeNominal",
+                  "name": "Optional",
+                  "printedName": "(() -> ())?",
+                  "children": [
+                    {
+                      "kind": "TypeFunc",
+                      "name": "Function",
+                      "printedName": "() -> ()",
+                      "children": [
+                        {
+                          "kind": "TypeNominal",
+                          "name": "Void",
+                          "printedName": "()"
+                        },
+                        {
+                          "kind": "TypeNominal",
+                          "name": "Void",
+                          "printedName": "()"
+                        }
+                      ]
+                    }
+                  ],
+                  "usr": "s:Sq"
+                }
+              ],
+              "declKind": "Accessor",
+              "usr": "s:6vpnold16ManagementClientC7onReadyyycSgvs",
+              "mangledName": "$s6vpnold16ManagementClientC7onReadyyycSgvs",
+              "moduleName": "vpnold",
+              "implicit": true,
+              "declAttributes": [
+                "Final"
+              ],
+              "accessorKind": "set"
+            },
+            {
+              "kind": "Accessor",
+              "name": "Modify",
+              "printedName": "Modify()",
+              "children": [
+                {
+                  "kind": "TypeNominal",
+                  "name": "Void",
+                  "printedName": "()"
+                }
+              ],
+              "declKind": "Accessor",
+              "usr": "s:6vpnold16ManagementClientC7onReadyyycSgvM",
+              "mangledName": "$s6vpnold16ManagementClientC7onReadyyycSgvM",
+              "moduleName": "vpnold",
+              "implicit": true,
+              "declAttributes": [
+                "Final"
+              ],
+              "accessorKind": "_modify"
+            }
+          ]
+        },
+        {
+          "kind": "Var",
+          "name": "onNeedCredentials",
+          "printedName": "onNeedCredentials",
+          "children": [
+            {
+              "kind": "TypeNominal",
+              "name": "Optional",
+              "printedName": "((Swift.String, Swift.Bool) -> ())?",
+              "children": [
+                {
+                  "kind": "TypeFunc",
+                  "name": "Function",
+                  "printedName": "(Swift.String, Swift.Bool) -> ()",
+                  "children": [
+                    {
+                      "kind": "TypeNominal",
+                      "name": "Void",
+                      "printedName": "()"
+                    },
+                    {
+                      "kind": "TypeNominal",
+                      "name": "Tuple",
+                      "printedName": "(Swift.String, Swift.Bool)",
+                      "children": [
+                        {
+                          "kind": "TypeNominal",
+                          "name": "String",
+                          "printedName": "Swift.String",
+                          "usr": "s:SS"
+                        },
+                        {
+                          "kind": "TypeNominal",
+                          "name": "Bool",
+                          "printedName": "Swift.Bool",
+                          "usr": "s:Sb"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "usr": "s:Sq"
+            }
+          ],
+          "declKind": "Var",
+          "usr": "s:6vpnold16ManagementClientC17onNeedCredentialsySS_SbtcSgvp",
+          "mangledName": "$s6vpnold16ManagementClientC17onNeedCredentialsySS_SbtcSgvp",
+          "moduleName": "vpnold",
+          "declAttributes": [
+            "HasInitialValue",
+            "Final",
+            "HasStorage",
+            "RawDocComment"
+          ],
+          "fixedbinaryorder": 5,
+          "hasStorage": true,
+          "accessors": [
+            {
+              "kind": "Accessor",
+              "name": "Get",
+              "printedName": "Get()",
+              "children": [
+                {
+                  "kind": "TypeNominal",
+                  "name": "Optional",
+                  "printedName": "((Swift.String, Swift.Bool) -> ())?",
+                  "children": [
+                    {
+                      "kind": "TypeFunc",
+                      "name": "Function",
+                      "printedName": "(Swift.String, Swift.Bool) -> ()",
+                      "children": [
+                        {
+                          "kind": "TypeNominal",
+                          "name": "Void",
+                          "printedName": "()"
+                        },
+                        {
+                          "kind": "TypeNominal",
+                          "name": "Tuple",
+                          "printedName": "(Swift.String, Swift.Bool)",
+                          "children": [
+                            {
+                              "kind": "TypeNominal",
+                              "name": "String",
+                              "printedName": "Swift.String",
+                              "usr": "s:SS"
+                            },
+                            {
+                              "kind": "TypeNominal",
+                              "name": "Bool",
+                              "printedName": "Swift.Bool",
+                              "usr": "s:Sb"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "usr": "s:Sq"
+                }
+              ],
+              "declKind": "Accessor",
+              "usr": "s:6vpnold16ManagementClientC17onNeedCredentialsySS_SbtcSgvg",
+              "mangledName": "$s6vpnold16ManagementClientC17onNeedCredentialsySS_SbtcSgvg",
+              "moduleName": "vpnold",
+              "implicit": true,
+              "declAttributes": [
+                "Final"
+              ],
+              "accessorKind": "get"
+            },
+            {
+              "kind": "Accessor",
+              "name": "Set",
+              "printedName": "Set()",
+              "children": [
+                {
+                  "kind": "TypeNominal",
+                  "name": "Void",
+                  "printedName": "()"
+                },
+                {
+                  "kind": "TypeNominal",
+                  "name": "Optional",
+                  "printedName": "((Swift.String, Swift.Bool) -> ())?",
+                  "children": [
+                    {
+                      "kind": "TypeFunc",
+                      "name": "Function",
+                      "printedName": "(Swift.String, Swift.Bool) -> ()",
+                      "children": [
+                        {
+                          "kind": "TypeNominal",
+                          "name": "Void",
+                          "printedName": "()"
+                        },
+                        {
+                          "kind": "TypeNominal",
+                          "name": "Tuple",
+                          "printedName": "(Swift.String, Swift.Bool)",
+                          "children": [
+                            {
+                              "kind": "TypeNominal",
+                              "name": "String",
+                              "printedName": "Swift.String",
+                              "usr": "s:SS"
+                            },
+                            {
+                              "kind": "TypeNominal",
+                              "name": "Bool",
+                              "printedName": "Swift.Bool",
+                              "usr": "s:Sb"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "usr": "s:Sq"
+                }
+              ],
+              "declKind": "Accessor",
+              "usr": "s:6vpnold16ManagementClientC17onNeedCredentialsySS_SbtcSgvs",
+              "mangledName": "$s6vpnold16ManagementClientC17onNeedCredentialsySS_SbtcSgvs",
+              "moduleName": "vpnold",
+              "implicit": true,
+              "declAttributes": [
+                "Final"
+              ],
+              "accessorKind": "set"
+            },
+            {
+              "kind": "Accessor",
+              "name": "Modify",
+              "printedName": "Modify()",
+              "children": [
+                {
+                  "kind": "TypeNominal",
+                  "name": "Void",
+                  "printedName": "()"
+                }
+              ],
+              "declKind": "Accessor",
+              "usr": "s:6vpnold16ManagementClientC17onNeedCredentialsySS_SbtcSgvM",
+              "mangledName": "$s6vpnold16ManagementClientC17onNeedCredentialsySS_SbtcSgvM",
+              "moduleName": "vpnold",
+              "implicit": true,
+              "declAttributes": [
+                "Final"
+              ],
+              "accessorKind": "_modify"
+            }
+          ]
+        },
+        {
+          "kind": "Var",
+          "name": "onAuthFailed",
+          "printedName": "onAuthFailed",
+          "children": [
+            {
+              "kind": "TypeNominal",
+              "name": "Optional",
+              "printedName": "((Swift.String) -> ())?",
+              "children": [
+                {
+                  "kind": "TypeFunc",
+                  "name": "Function",
+                  "printedName": "(Swift.String) -> ()",
+                  "children": [
+                    {
+                      "kind": "TypeNominal",
+                      "name": "Void",
+                      "printedName": "()"
+                    },
+                    {
+                      "kind": "TypeNominal",
+                      "name": "String",
+                      "printedName": "Swift.String",
+                      "usr": "s:SS"
+                    }
+                  ]
+                }
+              ],
+              "usr": "s:Sq"
+            }
+          ],
+          "declKind": "Var",
+          "usr": "s:6vpnold16ManagementClientC12onAuthFailedySScSgvp",
+          "mangledName": "$s6vpnold16ManagementClientC12onAuthFailedySScSgvp",
+          "moduleName": "vpnold",
+          "declAttributes": [
+            "HasInitialValue",
+            "Final",
+            "HasStorage",
+            "RawDocComment"
+          ],
+          "fixedbinaryorder": 6,
+          "hasStorage": true,
+          "accessors": [
+            {
+              "kind": "Accessor",
+              "name": "Get",
+              "printedName": "Get()",
+              "children": [
+                {
+                  "kind": "TypeNominal",
+                  "name": "Optional",
+                  "printedName": "((Swift.String) -> ())?",
+                  "children": [
+                    {
+                      "kind": "TypeFunc",
+                      "name": "Function",
+                      "printedName": "(Swift.String) -> ()",
+                      "children": [
+                        {
+                          "kind": "TypeNominal",
+                          "name": "Void",
+                          "printedName": "()"
+                        },
+                        {
+                          "kind": "TypeNominal",
+                          "name": "String",
+                          "printedName": "Swift.String",
+                          "usr": "s:SS"
+                        }
+                      ]
+                    }
+                  ],
+                  "usr": "s:Sq"
+                }
+              ],
+              "declKind": "Accessor",
+              "usr": "s:6vpnold16ManagementClientC12onAuthFailedySScSgvg",
+              "mangledName": "$s6vpnold16ManagementClientC12onAuthFailedySScSgvg",
+              "moduleName": "vpnold",
+              "implicit": true,
+              "declAttributes": [
+                "Final"
+              ],
+              "accessorKind": "get"
+            },
+            {
+              "kind": "Accessor",
+              "name": "Set",
+              "printedName": "Set()",
+              "children": [
+                {
+                  "kind": "TypeNominal",
+                  "name": "Void",
+                  "printedName": "()"
+                },
+                {
+                  "kind": "TypeNominal",
+                  "name": "Optional",
+                  "printedName": "((Swift.String) -> ())?",
+                  "children": [
+                    {
+                      "kind": "TypeFunc",
+                      "name": "Function",
+                      "printedName": "(Swift.String) -> ()",
+                      "children": [
+                        {
+                          "kind": "TypeNominal",
+                          "name": "Void",
+                          "printedName": "()"
+                        },
+                        {
+                          "kind": "TypeNominal",
+                          "name": "String",
+                          "printedName": "Swift.String",
+                          "usr": "s:SS"
+                        }
+                      ]
+                    }
+                  ],
+                  "usr": "s:Sq"
+                }
+              ],
+              "declKind": "Accessor",
+              "usr": "s:6vpnold16ManagementClientC12onAuthFailedySScSgvs",
+              "mangledName": "$s6vpnold16ManagementClientC12onAuthFailedySScSgvs",
+              "moduleName": "vpnold",
+              "implicit": true,
+              "declAttributes": [
+                "Final"
+              ],
+              "accessorKind": "set"
+            },
+            {
+              "kind": "Accessor",
+              "name": "Modify",
+              "printedName": "Modify()",
+              "children": [
+                {
+                  "kind": "TypeNominal",
+                  "name": "Void",
+                  "printedName": "()"
+                }
+              ],
+              "declKind": "Accessor",
+              "usr": "s:6vpnold16ManagementClientC12onAuthFailedySScSgvM",
+              "mangledName": "$s6vpnold16ManagementClientC12onAuthFailedySScSgvM",
+              "moduleName": "vpnold",
+              "implicit": true,
+              "declAttributes": [
+                "Final"
+              ],
+              "accessorKind": "_modify"
+            }
+          ]
+        },
+        {
+          "kind": "Var",
+          "name": "onUnsupportedAuth",
+          "printedName": "onUnsupportedAuth",
+          "children": [
+            {
+              "kind": "TypeNominal",
+              "name": "Optional",
+              "printedName": "((Swift.String) -> ())?",
+              "children": [
+                {
+                  "kind": "TypeFunc",
+                  "name": "Function",
+                  "printedName": "(Swift.String) -> ()",
+                  "children": [
+                    {
+                      "kind": "TypeNominal",
+                      "name": "Void",
+                      "printedName": "()"
+                    },
+                    {
+                      "kind": "TypeNominal",
+                      "name": "String",
+                      "printedName": "Swift.String",
+                      "usr": "s:SS"
+                    }
+                  ]
+                }
+              ],
+              "usr": "s:Sq"
+            }
+          ],
+          "declKind": "Var",
+          "usr": "s:6vpnold16ManagementClientC17onUnsupportedAuthySScSgvp",
+          "mangledName": "$s6vpnold16ManagementClientC17onUnsupportedAuthySScSgvp",
+          "moduleName": "vpnold",
+          "declAttributes": [
+            "HasInitialValue",
+            "Final",
+            "HasStorage",
+            "RawDocComment"
+          ],
+          "fixedbinaryorder": 7,
+          "hasStorage": true,
+          "accessors": [
+            {
+              "kind": "Accessor",
+              "name": "Get",
+              "printedName": "Get()",
+              "children": [
+                {
+                  "kind": "TypeNominal",
+                  "name": "Optional",
+                  "printedName": "((Swift.String) -> ())?",
+                  "children": [
+                    {
+                      "kind": "TypeFunc",
+                      "name": "Function",
+                      "printedName": "(Swift.String) -> ()",
+                      "children": [
+                        {
+                          "kind": "TypeNominal",
+                          "name": "Void",
+                          "printedName": "()"
+                        },
+                        {
+                          "kind": "TypeNominal",
+                          "name": "String",
+                          "printedName": "Swift.String",
+                          "usr": "s:SS"
+                        }
+                      ]
+                    }
+                  ],
+                  "usr": "s:Sq"
+                }
+              ],
+              "declKind": "Accessor",
+              "usr": "s:6vpnold16ManagementClientC17onUnsupportedAuthySScSgvg",
+              "mangledName": "$s6vpnold16ManagementClientC17onUnsupportedAuthySScSgvg",
+              "moduleName": "vpnold",
+              "implicit": true,
+              "declAttributes": [
+                "Final"
+              ],
+              "accessorKind": "get"
+            },
+            {
+              "kind": "Accessor",
+              "name": "Set",
+              "printedName": "Set()",
+              "children": [
+                {
+                  "kind": "TypeNominal",
+                  "name": "Void",
+                  "printedName": "()"
+                },
+                {
+                  "kind": "TypeNominal",
+                  "name": "Optional",
+                  "printedName": "((Swift.String) -> ())?",
+                  "children": [
+                    {
+                      "kind": "TypeFunc",
+                      "name": "Function",
+                      "printedName": "(Swift.String) -> ()",
+                      "children": [
+                        {
+                          "kind": "TypeNominal",
+                          "name": "Void",
+                          "printedName": "()"
+                        },
+                        {
+                          "kind": "TypeNominal",
+                          "name": "String",
+                          "printedName": "Swift.String",
+                          "usr": "s:SS"
+                        }
+                      ]
+                    }
+                  ],
+                  "usr": "s:Sq"
+                }
+              ],
+              "declKind": "Accessor",
+              "usr": "s:6vpnold16ManagementClientC17onUnsupportedAuthySScSgvs",
+              "mangledName": "$s6vpnold16ManagementClientC17onUnsupportedAuthySScSgvs",
+              "moduleName": "vpnold",
+              "implicit": true,
+              "declAttributes": [
+                "Final"
+              ],
+              "accessorKind": "set"
+            },
+            {
+              "kind": "Accessor",
+              "name": "Modify",
+              "printedName": "Modify()",
+              "children": [
+                {
+                  "kind": "TypeNominal",
+                  "name": "Void",
+                  "printedName": "()"
+                }
+              ],
+              "declKind": "Accessor",
+              "usr": "s:6vpnold16ManagementClientC17onUnsupportedAuthySScSgvM",
+              "mangledName": "$s6vpnold16ManagementClientC17onUnsupportedAuthySScSgvM",
+              "moduleName": "vpnold",
+              "implicit": true,
+              "declAttributes": [
+                "Final"
+              ],
+              "accessorKind": "_modify"
+            }
+          ]
+        },
+        {
+          "kind": "Var",
+          "name": "password",
+          "printedName": "password",
+          "children": [
+            {
+              "kind": "TypeNominal",
+              "name": "Optional",
+              "printedName": "Swift.String?",
+              "children": [
+                {
+                  "kind": "TypeNominal",
+                  "name": "String",
+                  "printedName": "Swift.String",
+                  "usr": "s:SS"
+                }
+              ],
+              "usr": "s:Sq"
+            }
+          ],
+          "declKind": "Var",
+          "usr": "s:6vpnold16ManagementClientC8passwordSSSgvp",
+          "mangledName": "$s6vpnold16ManagementClientC8passwordSSSgvp",
+          "moduleName": "vpnold",
+          "declAttributes": [
+            "HasInitialValue",
+            "Final",
+            "HasStorage",
+            "RawDocComment"
+          ],
+          "fixedbinaryorder": 8,
+          "hasStorage": true,
+          "accessors": [
+            {
+              "kind": "Accessor",
+              "name": "Get",
+              "printedName": "Get()",
+              "children": [
+                {
+                  "kind": "TypeNominal",
+                  "name": "Optional",
+                  "printedName": "Swift.String?",
+                  "children": [
+                    {
+                      "kind": "TypeNominal",
+                      "name": "String",
+                      "printedName": "Swift.String",
+                      "usr": "s:SS"
+                    }
+                  ],
+                  "usr": "s:Sq"
+                }
+              ],
+              "declKind": "Accessor",
+              "usr": "s:6vpnold16ManagementClientC8passwordSSSgvg",
+              "mangledName": "$s6vpnold16ManagementClientC8passwordSSSgvg",
+              "moduleName": "vpnold",
+              "implicit": true,
+              "declAttributes": [
+                "Final"
+              ],
+              "accessorKind": "get"
+            },
+            {
+              "kind": "Accessor",
+              "name": "Set",
+              "printedName": "Set()",
+              "children": [
+                {
+                  "kind": "TypeNominal",
+                  "name": "Void",
+                  "printedName": "()"
+                },
+                {
+                  "kind": "TypeNominal",
+                  "name": "Optional",
+                  "printedName": "Swift.String?",
+                  "children": [
+                    {
+                      "kind": "TypeNominal",
+                      "name": "String",
+                      "printedName": "Swift.String",
+                      "usr": "s:SS"
+                    }
+                  ],
+                  "usr": "s:Sq"
+                }
+              ],
+              "declKind": "Accessor",
+              "usr": "s:6vpnold16ManagementClientC8passwordSSSgvs",
+              "mangledName": "$s6vpnold16ManagementClientC8passwordSSSgvs",
+              "moduleName": "vpnold",
+              "implicit": true,
+              "declAttributes": [
+                "Final"
+              ],
+              "accessorKind": "set"
+            },
+            {
+              "kind": "Accessor",
+              "name": "Modify",
+              "printedName": "Modify()",
+              "children": [
+                {
+                  "kind": "TypeNominal",
+                  "name": "Void",
+                  "printedName": "()"
+                }
+              ],
+              "declKind": "Accessor",
+              "usr": "s:6vpnold16ManagementClientC8passwordSSSgvM",
+              "mangledName": "$s6vpnold16ManagementClientC8passwordSSSgvM",
+              "moduleName": "vpnold",
+              "implicit": true,
+              "declAttributes": [
+                "Final"
+              ],
+              "accessorKind": "_modify"
+            }
+          ]
+        },
+        {
+          "kind": "Var",
           "name": "input",
           "printedName": "input",
           "children": [
@@ -1820,7 +2704,7 @@
             "HasStorage",
             "AccessControl"
           ],
-          "fixedbinaryorder": 4,
+          "fixedbinaryorder": 9,
           "hasStorage": true
         },
         {
@@ -1854,7 +2738,7 @@
             "HasStorage",
             "AccessControl"
           ],
-          "fixedbinaryorder": 5,
+          "fixedbinaryorder": 10,
           "hasStorage": true
         },
         {
@@ -1888,7 +2772,7 @@
             "HasStorage",
             "AccessControl"
           ],
-          "fixedbinaryorder": 6,
+          "fixedbinaryorder": 11,
           "hasStorage": true
         },
         {
@@ -1923,7 +2807,7 @@
             "AccessControl",
             "RawDocComment"
           ],
-          "fixedbinaryorder": 7,
+          "fixedbinaryorder": 12,
           "hasStorage": true
         },
         {
@@ -1950,7 +2834,7 @@
             "AccessControl",
             "RawDocComment"
           ],
-          "fixedbinaryorder": 8,
+          "fixedbinaryorder": 13,
           "hasStorage": true
         },
         {
@@ -1976,7 +2860,85 @@
             "HasStorage",
             "AccessControl"
           ],
-          "fixedbinaryorder": 9,
+          "fixedbinaryorder": 14,
+          "hasStorage": true
+        },
+        {
+          "kind": "Var",
+          "name": "sentSocketPassword",
+          "printedName": "sentSocketPassword",
+          "children": [
+            {
+              "kind": "TypeNominal",
+              "name": "Bool",
+              "printedName": "Swift.Bool",
+              "usr": "s:Sb"
+            }
+          ],
+          "declKind": "Var",
+          "usr": "s:6vpnold16ManagementClientC18sentSocketPassword33_75CEDF01ACAD83DFF8219335F7D7DB4ELLSbvp",
+          "mangledName": "$s6vpnold16ManagementClientC18sentSocketPassword33_75CEDF01ACAD83DFF8219335F7D7DB4ELLSbvp",
+          "moduleName": "vpnold",
+          "isInternal": true,
+          "declAttributes": [
+            "HasInitialValue",
+            "Final",
+            "HasStorage",
+            "AccessControl"
+          ],
+          "fixedbinaryorder": 15,
+          "hasStorage": true
+        },
+        {
+          "kind": "Var",
+          "name": "authenticated",
+          "printedName": "authenticated",
+          "children": [
+            {
+              "kind": "TypeNominal",
+              "name": "Bool",
+              "printedName": "Swift.Bool",
+              "usr": "s:Sb"
+            }
+          ],
+          "declKind": "Var",
+          "usr": "s:6vpnold16ManagementClientC13authenticated33_75CEDF01ACAD83DFF8219335F7D7DB4ELLSbvp",
+          "mangledName": "$s6vpnold16ManagementClientC13authenticated33_75CEDF01ACAD83DFF8219335F7D7DB4ELLSbvp",
+          "moduleName": "vpnold",
+          "isInternal": true,
+          "declAttributes": [
+            "HasInitialValue",
+            "Final",
+            "HasStorage",
+            "AccessControl"
+          ],
+          "fixedbinaryorder": 16,
+          "hasStorage": true
+        },
+        {
+          "kind": "Var",
+          "name": "sawHold",
+          "printedName": "sawHold",
+          "children": [
+            {
+              "kind": "TypeNominal",
+              "name": "Bool",
+              "printedName": "Swift.Bool",
+              "usr": "s:Sb"
+            }
+          ],
+          "declKind": "Var",
+          "usr": "s:6vpnold16ManagementClientC7sawHold33_75CEDF01ACAD83DFF8219335F7D7DB4ELLSbvp",
+          "mangledName": "$s6vpnold16ManagementClientC7sawHold33_75CEDF01ACAD83DFF8219335F7D7DB4ELLSbvp",
+          "moduleName": "vpnold",
+          "isInternal": true,
+          "declAttributes": [
+            "HasInitialValue",
+            "Final",
+            "HasStorage",
+            "AccessControl"
+          ],
+          "fixedbinaryorder": 17,
           "hasStorage": true
         },
         {
@@ -2001,7 +2963,7 @@
             "HasStorage",
             "SetterAccess"
           ],
-          "fixedbinaryorder": 10,
+          "fixedbinaryorder": 18,
           "hasStorage": true,
           "accessors": [
             {
@@ -2021,6 +2983,50 @@
               "mangledName": "$s6vpnold16ManagementClientC6isOpenSbvg",
               "moduleName": "vpnold",
               "implicit": true,
+              "declAttributes": [
+                "Final"
+              ],
+              "accessorKind": "get"
+            }
+          ]
+        },
+        {
+          "kind": "Var",
+          "name": "isReady",
+          "printedName": "isReady",
+          "children": [
+            {
+              "kind": "TypeNominal",
+              "name": "Bool",
+              "printedName": "Swift.Bool",
+              "usr": "s:Sb"
+            }
+          ],
+          "declKind": "Var",
+          "usr": "s:6vpnold16ManagementClientC7isReadySbvp",
+          "mangledName": "$s6vpnold16ManagementClientC7isReadySbvp",
+          "moduleName": "vpnold",
+          "declAttributes": [
+            "Final",
+            "RawDocComment"
+          ],
+          "accessors": [
+            {
+              "kind": "Accessor",
+              "name": "Get",
+              "printedName": "Get()",
+              "children": [
+                {
+                  "kind": "TypeNominal",
+                  "name": "Bool",
+                  "printedName": "Swift.Bool",
+                  "usr": "s:Sb"
+                }
+              ],
+              "declKind": "Accessor",
+              "usr": "s:6vpnold16ManagementClientC7isReadySbvg",
+              "mangledName": "$s6vpnold16ManagementClientC7isReadySbvg",
+              "moduleName": "vpnold",
               "declAttributes": [
                 "Final"
               ],
@@ -2162,6 +3168,53 @@
           "declAttributes": [
             "Final",
             "ObjC",
+            "RawDocComment"
+          ],
+          "funcSelfKind": "NonMutating"
+        },
+        {
+          "kind": "Function",
+          "name": "answer",
+          "printedName": "answer(realm:username:password:)",
+          "children": [
+            {
+              "kind": "TypeNominal",
+              "name": "Void",
+              "printedName": "()"
+            },
+            {
+              "kind": "TypeNominal",
+              "name": "String",
+              "printedName": "Swift.String",
+              "usr": "s:SS"
+            },
+            {
+              "kind": "TypeNominal",
+              "name": "Optional",
+              "printedName": "Swift.String?",
+              "children": [
+                {
+                  "kind": "TypeNominal",
+                  "name": "String",
+                  "printedName": "Swift.String",
+                  "usr": "s:SS"
+                }
+              ],
+              "usr": "s:Sq"
+            },
+            {
+              "kind": "TypeNominal",
+              "name": "String",
+              "printedName": "Swift.String",
+              "usr": "s:SS"
+            }
+          ],
+          "declKind": "Func",
+          "usr": "s:6vpnold16ManagementClientC6answer5realm8username8passwordySS_SSSgSStF",
+          "mangledName": "$s6vpnold16ManagementClientC6answer5realm8username8passwordySS_SSSgSStF",
+          "moduleName": "vpnold",
+          "declAttributes": [
+            "Final",
             "RawDocComment"
           ],
           "funcSelfKind": "NonMutating"

@@ -327,9 +327,10 @@ SWIFT_CLASS("_TtC6vpnold10SettingsVC")
 /// temporary network checklist — is behind the Settings button, because none of
 /// it is needed once a tunnel is up.
 SWIFT_CLASS("_TtC6vpnold17VPNViewController")
-@interface VPNViewController : UIViewController
+@interface VPNViewController : UIViewController <UIAlertViewDelegate>
 - (void)viewDidLoad;
 - (void)viewDidAppear:(BOOL)animated;
+- (void)alertView:(UIAlertView * _Nonnull)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
 @end

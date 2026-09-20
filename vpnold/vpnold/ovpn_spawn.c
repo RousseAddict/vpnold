@@ -25,11 +25,20 @@ extern char **environ;
  *   bin     — path to the bundled openvpn (exec'd by ovpnroot as root)
  *   cfg     — path to the .ovpn config
  *   dns     — path to the bundled ovpndns helper (--up/--down script)
+ *   mgmtpw  — path to the management-interface password file (mode 0600)
  *   logpath — file that receives openvpn's stdout+stderr
  * Returns the child pid (>0) on success, or -errno on failure. */
 int ovpn_spawn(const char *wrapper, const char *bin, const char *cfg,
-               const char *dns, const char *logpath)
+               const char *dns, const char *mgmtpw, const char *logpath)
 {
+    /* Deliberately a hard failure rather than a silent fallback to an
+     * unauthenticated socket. The management interface accepts commands, not
+     * just status queries, and it now carries the user's VPN password — on a
+     * jailbroken device any other process can reach 127.0.0.1:7505. If the
+     * password file could not be written, not connecting is the right outcome. */
+    if (!mgmtpw || !*mgmtpw)
+        return -EINVAL;
+
     posix_spawn_file_actions_t fa;
     posix_spawn_file_actions_init(&fa);
     posix_spawn_file_actions_addopen(&fa, 1, logpath,
@@ -62,7 +71,19 @@ int ovpn_spawn(const char *wrapper, const char *bin, const char *cfg,
         "--verb", "3",
         "--dev", "utun",
         "--dev-type", "tun",
-        "--management", "127.0.0.1", "7505",
+        "--management", "127.0.0.1", "7505", (char *)mgmtpw,
+        /* Credentials are answered over the management socket instead of being
+         * read from a console that does not exist here, or from a plaintext
+         * auth-user-pass file on disk. */
+        "--management-query-passwords",
+        /* Start held and do nothing until told to proceed. Without this the UI
+         * races openvpn: the management client is opened on a retry timer
+         * *after* the spawn, so openvpn can reach the point of needing a
+         * password before anything is listening to ask. */
+        "--management-hold",
+        /* A rejected password re-queries instead of ending the process, so a
+         * typo costs one more prompt rather than a whole reconnect. */
+        "--auth-retry", "interact",
         "--script-security", "2",
         "--up", upcmd,
         "--down", downcmd,

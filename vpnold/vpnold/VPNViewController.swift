@@ -5,7 +5,7 @@ import UIKit
 /// Everything else — the log, the post-install root chore, the setup guide, the
 /// temporary network checklist — is behind the Settings button, because none of
 /// it is needed once a tunnel is up.
-final class VPNViewController: UIViewController {
+final class VPNViewController: UIViewController, UIAlertViewDelegate {
 
     /// What the user is shown, as opposed to the dozen states openvpn reports.
     /// Only the colour and the headline differ; openvpn's own wording is kept
@@ -55,7 +55,13 @@ final class VPNViewController: UIViewController {
     private var mgmtRetryTimer: Timer?
     private var mgmtRetries = 0
 
+    /// The credential request currently on screen, so the alert's delegate
+    /// callback knows what it is answering.
+    private var pendingRealm: String?
+    private var pendingNeedsUsername = false
+
     private var logPath: String { NSTemporaryDirectory() + "openvpn.log" }
+    private var mgmtPasswordPath: String { NSTemporaryDirectory() + "mgmt.pw" }
     private var openvpnBin: String { Bundle.main.bundlePath + "/openvpn" }
     private var ovpnrootBin: String { Bundle.main.bundlePath + "/ovpnroot" }
     private var ovpndnsBin: String { Bundle.main.bundlePath + "/ovpndns" }
@@ -312,7 +318,16 @@ final class VPNViewController: UIViewController {
             return
         }
         RunLog.line("[ovpn] config: \(cfg)")
-        let pid = ovpn_spawn(ovpnrootBin, openvpnBin, cfg, ovpndnsBin, logPath)
+
+        guard let mgmtPassword = writeManagementPassword() else {
+            setPhase(.failed, detail: "could not write the management password file")
+            RunLog.line("[mgmt] could not write \(mgmtPasswordPath) — not starting openvpn.")
+            return
+        }
+        mgmt.password = mgmtPassword
+
+        let pid = ovpn_spawn(ovpnrootBin, openvpnBin, cfg, ovpndnsBin,
+                             mgmtPasswordPath, logPath)
         if pid <= 0 {
             setPhase(.failed, detail: "spawn failed — run Settings → Fix permissions")
             RunLog.line("[ovpn] spawn failed: errno \(-pid) (\(String(cString: strerror(-pid))))")
@@ -331,9 +346,38 @@ final class VPNViewController: UIViewController {
         startManagement()
     }
 
+    /// A fresh random password for the management socket, written to a 0600
+    /// file that openvpn reads once at startup. Returns the password, or nil if
+    /// the file could not be written.
+    ///
+    /// Regenerated per connection rather than kept: it only has to outlive one
+    /// openvpn process, and a value that never persists cannot leak from a
+    /// backup or a stale file.
+    private func writeManagementPassword() -> String? {
+        var raw = [UInt8](repeating: 0, count: 24)
+        arc4random_buf(&raw, raw.count)
+        let pw = raw.map { String(format: "%02x", $0) }.joined()
+
+        // Plain POSIX, so the mode is set at creation and there is no window in
+        // which the file exists readable by anyone else.
+        let fd = open(mgmtPasswordPath, O_WRONLY | O_CREAT | O_TRUNC, 0o600)
+        guard fd >= 0 else { return nil }
+        let line = pw + "\n"
+        var written = -1
+        line.utf8CString.withUnsafeBufferPointer { buf in
+            // utf8CString carries a trailing NUL that must not reach the file.
+            written = write(fd, buf.baseAddress, buf.count - 1)
+        }
+        close(fd)
+        guard written == line.utf8.count else { return nil }
+        // O_CREAT leaves the mode alone if the file already existed.
+        _ = chmod(mgmtPasswordPath, 0o600)
+        return pw
+    }
+
     private func stop() {
         guard ovpnPid != 0 else { return }
-        if mgmt.isOpen {
+        if mgmt.isReady {
             // Clean shutdown through the management interface: openvpn runs its
             // normal exit path and removes the routes it installed.
             RunLog.line("[mgmt] signal SIGTERM")
@@ -398,10 +442,30 @@ final class VPNViewController: UIViewController {
                 self.mgmtRetryTimer?.invalidate()
                 self.mgmtRetryTimer = nil
                 RunLog.line("[mgmt] connected to 127.0.0.1:7505")
-                self.mgmt.requestCurrentState() // where it is right now
-                self.mgmt.send("state on")      // real-time >STATE: notifications
-                self.mgmt.send("bytecount 1")   // >BYTECOUNT: every second
             }
+        }
+        // Not onOpenChange: the socket now has a password, and openvpn rejects
+        // every command until it has been accepted.
+        mgmt.onReady = { [weak self] in
+            guard let self = self else { return }
+            RunLog.line("[mgmt] authenticated")
+            self.mgmt.requestCurrentState() // where it is right now
+            self.mgmt.send("state on")      // real-time >STATE: notifications
+            self.mgmt.send("bytecount 1")   // >BYTECOUNT: every second
+            // openvpn was spawned with --management-hold and has been idle since;
+            // ManagementClient releases it once this returns.
+        }
+        mgmt.onNeedCredentials = { [weak self] realm, needsUsername in
+            self?.promptCredentials(realm: realm, needsUsername: needsUsername)
+        }
+        mgmt.onAuthFailed = { [weak self] realm in
+            RunLog.line("[mgmt] \(realm) was rejected — asking again")
+            self?.setPhase(.connecting, detail: "\(realm) rejected, try again")
+        }
+        mgmt.onUnsupportedAuth = { [weak self] reason in
+            RunLog.line("[mgmt] \(reason)")
+            self?.setPhase(.failed, detail: "unsupported authentication — see the log")
+            self?.stop()
         }
         mgmt.onState = { [weak self] state, detail in
             guard let self = self, !self.stopping else { return }
@@ -444,7 +508,55 @@ final class VPNViewController: UIViewController {
     private func stopManagement() {
         mgmtRetryTimer?.invalidate()
         mgmtRetryTimer = nil
+        pendingRealm = nil
         mgmt.close()
+    }
+
+    // MARK: - credential prompts
+
+    /// Asked for on every connection and never stored. On a jailbroken device
+    /// the Keychain is readable by root, so "remember this" would be offering a
+    /// protection the platform cannot actually provide here.
+    private func promptCredentials(realm: String, needsUsername: Bool) {
+        pendingRealm = realm
+        pendingNeedsUsername = needsUsername
+        setPhase(.connecting, detail: "waiting for credentials")
+
+        let name = (ConfigStore.selected as NSString?)?.lastPathComponent ?? "This config"
+        // Built property-by-property: the multi-argument UIAlertView
+        // initializer is a Swift UIKit *overlay* symbol and traps in
+        // dyld_stub_binder against the 5.1.5 runtime this app ships. Same
+        // reason as RootFix.prompt.
+        let alert = UIAlertView()
+        alert.title = needsUsername ? "VPN sign-in" : "Private key password"
+        alert.message = needsUsername
+            ? "\(name) needs a username and password."
+            : "The private key in \(name) is encrypted."
+        alert.delegate = self
+        alert.alertViewStyle = needsUsername ? .loginAndPasswordInput : .secureTextInput
+        alert.addButton(withTitle: "Cancel")
+        alert.cancelButtonIndex = 0
+        alert.addButton(withTitle: "Connect")
+        alert.show()
+    }
+
+    // UIAlertView holds its delegate unowned, but this controller is the root of
+    // the navigation stack and outlives every alert it shows.
+    func alertView(_ alertView: UIAlertView, clickedButtonAt buttonIndex: Int) {
+        guard let realm = pendingRealm else { return }
+        pendingRealm = nil
+
+        guard buttonIndex != alertView.cancelButtonIndex else {
+            RunLog.line("[mgmt] \(realm) prompt cancelled — disconnecting")
+            stop()
+            return
+        }
+
+        let username = pendingNeedsUsername ? (alertView.textField(at: 0)?.text ?? "") : nil
+        let secretField = pendingNeedsUsername ? 1 : 0
+        let secret = alertView.textField(at: secretField)?.text ?? ""
+        mgmt.answer(realm: realm, username: username, password: secret)
+        setPhase(.connecting, detail: "sent \(realm) credentials")
     }
 
     private static func human(_ n: UInt64) -> String {

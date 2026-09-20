@@ -5,10 +5,11 @@
 
 /* Spawn the embedded openvpn via the setuid-root ovpnroot shim (wrapper) so it
  * runs with real uid 0 and can install routes. `dns` is the bundled ovpndns
- * helper, wired up as openvpn's --up/--down script. Output goes to logpath.
- * Returns child pid (>0) or -errno. */
+ * helper, wired up as openvpn's --up/--down script. `mgmtpw` is the file
+ * holding the management-interface password, and is required. Output goes to
+ * logpath. Returns child pid (>0) or -errno. */
 int ovpn_spawn(const char *wrapper, const char *bin, const char *cfg,
-               const char *dns, const char *logpath);
+               const char *dns, const char *mgmtpw, const char *logpath);
 
 /* Install signal handlers that append a backtrace to `path` when the process
  * dies (see crash_trap.c). Returns 0, or -1 if the file could not be opened. */
