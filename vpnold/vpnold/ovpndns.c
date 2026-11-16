@@ -231,18 +231,26 @@ static void add_str(CFMutableArrayRef arr, const char *s)
 }
 
 /* openvpn calls its --up script as
- *     <script> <dev> <tun_mtu> <link_mtu> <local_ip> <netmask> <init|restart>
- * and our own "up" sits in front of that, so the tunnel's own parameters are
- * argv[2], argv[5] and argv[6]. Returns 0 if all three are there. */
+ *     <script> <dev> <tun_mtu> <link_mtu> <local_ip> <X> <init|restart>
+ * with our own "up" in front, so dev and local are argv[2] and argv[5].
+ *
+ * <X> is NOT always a netmask. With `topology subnet` it is, but with
+ * `topology net30` or `p2p` (the default, and what e.g. vpnbook pushes) it is
+ * the far end's IP, and publishing that as SubnetMasks hands configd a
+ * non-contiguous garbage mask. openvpn's environment says which case this is:
+ * `ifconfig_netmask` is only exported for subnet topology, and a point-to-point
+ * link is a /32 on our side. The env is preferred for dev/local too, with argv
+ * as the fallback. Returns 0 if dev and local were found. */
 static int tunnel_params(int argc, char **argv, const char **dev,
                          const char **local, const char **mask)
 {
-    if (argc < 7)
-        return -1;
-    *dev   = argv[2];
-    *local = argv[5];
-    *mask  = argv[6];
-    return 0;
+    *dev   = getenv("dev");
+    *local = getenv("ifconfig_local");
+    *mask  = getenv("ifconfig_netmask");
+    if (!*dev && argc > 2)   *dev = argv[2];
+    if (!*local && argc > 5) *local = argv[5];
+    if (!*mask)              *mask = "255.255.255.255";
+    return (*dev && *local) ? 0 : -1;
 }
 
 static int do_up(SCDynamicStoreRef store, int argc, char **argv)

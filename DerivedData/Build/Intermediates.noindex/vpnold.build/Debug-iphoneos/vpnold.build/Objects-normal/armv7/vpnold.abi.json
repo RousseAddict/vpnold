@@ -970,6 +970,36 @@
         },
         {
           "kind": "Function",
+          "name": "didPresent",
+          "printedName": "didPresent(_:)",
+          "children": [
+            {
+              "kind": "TypeNominal",
+              "name": "Void",
+              "printedName": "()"
+            },
+            {
+              "kind": "TypeNominal",
+              "name": "UIAlertView",
+              "printedName": "UIKit.UIAlertView",
+              "usr": "c:objc(cs)UIAlertView"
+            }
+          ],
+          "declKind": "Func",
+          "usr": "c:@M@vpnold@objc(cs)VPNViewController(im)didPresentAlertView:",
+          "mangledName": "$s6vpnold17VPNViewControllerC10didPresentyySo11UIAlertViewCF",
+          "moduleName": "vpnold",
+          "objc_name": "didPresentAlertView:",
+          "declAttributes": [
+            "Final",
+            "Custom",
+            "ObjC",
+            "RawDocComment"
+          ],
+          "funcSelfKind": "NonMutating"
+        },
+        {
+          "kind": "Function",
           "name": "alertView",
           "printedName": "alertView(_:clickedButtonAt:)",
           "children": [

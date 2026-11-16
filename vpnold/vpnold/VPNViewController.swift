@@ -456,6 +456,8 @@ final class VPNViewController: UIViewController, UIAlertViewDelegate {
             // ManagementClient releases it once this returns.
         }
         mgmt.onNeedCredentials = { [weak self] realm, needsUsername in
+            RunLog.line("[mgmt] openvpn asks for \(realm) "
+                        + (needsUsername ? "username/password" : "password"))
             self?.promptCredentials(realm: realm, needsUsername: needsUsername)
         }
         mgmt.onAuthFailed = { [weak self] realm in
@@ -537,7 +539,47 @@ final class VPNViewController: UIViewController, UIAlertViewDelegate {
         alert.addButton(withTitle: "Cancel")
         alert.cancelButtonIndex = 0
         alert.addButton(withTitle: "Connect")
+        if needsUsername, let login = alert.textField(at: 0) {
+            // The login field is an ordinary text field: autocorrect and
+            // auto-capitalisation are ON, and a pending correction is committed
+            // when the alert dismisses — so "vpnbook" can silently reach the
+            // server as "Vpnbook" or a dictionary word and fail as a bad login.
+            login.autocapitalizationType = .none
+            login.autocorrectionType = .no
+            login.text = savedUsername
+        }
         alert.show()
+    }
+
+    // Straight to the password when the username is already filled in. Done
+    // here, not after show(): iOS 6 focuses the first field itself while the
+    // alert animates in, which would undo an earlier becomeFirstResponder.
+    @objc(didPresentAlertView:)
+    func didPresent(_ alertView: UIAlertView) {
+        guard pendingRealm != nil, pendingNeedsUsername,
+              !(alertView.textField(at: 0)?.text ?? "").isEmpty else { return }
+        alertView.textField(at: 1)?.becomeFirstResponder()
+    }
+
+    /// The username last used with the selected config. Only the username: it
+    /// identifies, it does not authenticate, so keeping it costs nothing and
+    /// saves retyping it on a phone keyboard every time. The password is still
+    /// asked for on every connection (see promptCredentials).
+    private var usernameKey: String? {
+        guard let name = (ConfigStore.selected as NSString?)?.lastPathComponent else { return nil }
+        return "vpnold.username." + name
+    }
+
+    private var savedUsername: String? {
+        get {
+            guard let key = usernameKey else { return nil }
+            return UserDefaults.standard.string(forKey: key)
+        }
+        set {
+            guard let key = usernameKey else { return }
+            UserDefaults.standard.set(newValue, forKey: key)
+            UserDefaults.standard.synchronize()
+        }
     }
 
     // UIAlertView holds its delegate unowned, but this controller is the root of
@@ -552,10 +594,18 @@ final class VPNViewController: UIViewController, UIAlertViewDelegate {
             return
         }
 
-        let username = pendingNeedsUsername ? (alertView.textField(at: 0)?.text ?? "") : nil
+        // Trimmed: a stray space from the keyboard's auto-space after a pasted
+        // or suggested word is never part of a real username.
+        let username = pendingNeedsUsername
+            ? (alertView.textField(at: 0)?.text ?? "").trimmingCharacters(in: .whitespaces)
+            : nil
         let secretField = pendingNeedsUsername ? 1 : 0
         let secret = alertView.textField(at: secretField)?.text ?? ""
+        if let user = username, !user.isEmpty { savedUsername = user }
         mgmt.answer(realm: realm, username: username, password: secret)
+        // The username is safe to log; the password never is.
+        RunLog.line(username.map { "[mgmt] sent \(realm) credentials for user '\($0)'" }
+                    ?? "[mgmt] sent \(realm) password")
         setPhase(.connecting, detail: "sent \(realm) credentials")
     }
 
