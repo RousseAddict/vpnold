@@ -44,6 +44,10 @@
  * are resolved with dlopen/dlsym against the framework on the device and the
  * prototypes are declared here.
  *
+ * The same up/down hooks also block IPv6 to the internet while connected, so
+ * that dual-stack traffic falls back to IPv4 and the tunnel instead of leaking
+ * out of en0 (see v6_block).
+ *
  * Invoked by openvpn as `ovpndns up` / `ovpndns down` (see ovpn_spawn.c), which
  * means it inherits openvpn's ruid=euid=0 — writing State: keys needs root.
  * openvpn's own stdout is our log file, so everything printed here shows up in
@@ -53,11 +57,52 @@
 
 #include <CoreFoundation/CoreFoundation.h>
 #include <dlfcn.h>
+#include <errno.h>
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+
+/* The iOS SDK strips <net/route.h>. These are the few routing-socket
+ * definitions the IPv6 block below needs, copied from xnu, where this ABI
+ * (RTM_VERSION 5) has not changed in well over a decade. */
+#if __has_include(<net/route.h>)
+#include <net/route.h>
+#else
+struct rt_metrics {
+    u_int32_t rmx_locks, rmx_mtu, rmx_hopcount;
+    int32_t   rmx_expire;
+    u_int32_t rmx_recvpipe, rmx_sendpipe, rmx_ssthresh, rmx_rtt, rmx_rttvar,
+              rmx_pksent, rmx_filler[4];
+};
+struct rt_msghdr {
+    u_short rtm_msglen;
+    u_char  rtm_version;
+    u_char  rtm_type;
+    u_short rtm_index;
+    int     rtm_flags;
+    int     rtm_addrs;
+    pid_t   rtm_pid;
+    int     rtm_seq;
+    int     rtm_errno;
+    int     rtm_use;
+    u_int32_t rtm_inits;
+    struct rt_metrics rtm_rmx;
+};
+#define RTM_VERSION 5
+#define RTM_ADD     0x1
+#define RTM_DELETE  0x2
+#define RTF_UP      0x1
+#define RTF_GATEWAY 0x2
+#define RTF_REJECT  0x8
+#define RTF_STATIC  0x800
+#define RTA_DST     0x1
+#define RTA_GATEWAY 0x2
+#define RTA_NETMASK 0x4
+#endif
 
 /* Where the pre-VPN values of every key we touch are parked between up and
  * down. */
@@ -217,6 +262,71 @@ static CFDataRef copy_file_data(const char *path)
         CFDataAppendBytes(data, buf, n);
     close(fd);
     return data;
+}
+
+/* ── IPv6 leak block ──────────────────────────────────────────────────────── */
+
+/* The tunnel is IPv4-only here, but en0 keeps its native IPv6 and its own IPv6
+ * default route. So while the VPN is up, anything dual-stack (and curl, Safari
+ * and friends PREFER IPv6) goes straight out of the LAN, around the tunnel —
+ * measured on-device: `curl -4 ifconfig.me` gave the VPN exit, `curl -6` the
+ * home ISP.
+ *
+ * It cannot be routed into the tunnel instead: none of the servers in use push
+ * IPv6, and this jailbreak's /sbin/ifconfig and /sbin/route were built without
+ * INET6 ("bad keyword: inet6"), so openvpn could not configure it even if one
+ * did. What can be done is to make IPv6 to the internet fail FAST, so that every
+ * client falls back to IPv4 — which does go through the tunnel.
+ *
+ * Hence one REJECT route for 2000::/3, the whole global-unicast space. It is
+ * more specific than en0's ::/0, so it wins for unscoped traffic; connect()
+ * then fails at once with EHOSTUNREACH rather than timing out, and link-local
+ * and ULA (LAN) IPv6 are untouched. Written straight to a PF_ROUTE socket
+ * because the route(8) here cannot express it. The kernel forgets it on reboot,
+ * and if a session dies without running `down` the block simply stays until
+ * the next disconnect: failing closed, not open. */
+static int v6_block(int on)
+{
+    struct {
+        struct rt_msghdr hdr;
+        struct sockaddr_in6 dst, gw, mask;   /* 28 bytes each, already aligned */
+    } m;
+    memset(&m, 0, sizeof m);
+
+    m.hdr.rtm_msglen  = sizeof m;
+    m.hdr.rtm_version = RTM_VERSION;
+    m.hdr.rtm_type    = on ? RTM_ADD : RTM_DELETE;
+    m.hdr.rtm_flags   = RTF_UP | RTF_GATEWAY | RTF_STATIC | RTF_REJECT;
+    m.hdr.rtm_addrs   = RTA_DST | RTA_GATEWAY | RTA_NETMASK;
+    m.hdr.rtm_pid     = getpid();
+    m.hdr.rtm_seq     = 1;
+
+    m.dst.sin6_len = m.gw.sin6_len = m.mask.sin6_len = sizeof(struct sockaddr_in6);
+    m.dst.sin6_family = m.gw.sin6_family = m.mask.sin6_family = AF_INET6;
+    m.dst.sin6_addr.s6_addr[0]  = 0x20;   /* 2000:: */
+    m.mask.sin6_addr.s6_addr[0] = 0xe0;   /* /3     */
+    m.gw.sin6_addr.s6_addr[15]  = 1;      /* ::1    */
+
+    int s = socket(PF_ROUTE, SOCK_RAW, 0);
+    if (s < 0) {
+        printf("ovpndns: IPv6 block: routing socket: %s\n", strerror(errno));
+        return 1;
+    }
+    ssize_t n = write(s, &m, sizeof m);
+    int err = (n < 0) ? errno : 0;
+    close(s);
+
+    /* Already there (a session that died without `down`) / already gone. */
+    if (err == (on ? EEXIST : ESRCH))
+        err = 0;
+    if (err) {
+        printf("ovpndns: IPv6 block %s FAILED: %s\n", on ? "on" : "off",
+               strerror(err));
+        return 1;
+    }
+    printf("ovpndns: IPv6 to the internet %s (reject route 2000::/3)\n",
+           on ? "BLOCKED while connected" : "restored");
+    return 0;
 }
 
 /* ── up ───────────────────────────────────────────────────────────────────── */
@@ -529,6 +639,24 @@ int main(int argc, char **argv)
 
     const char *mode = (argc > 1) ? argv[1] : "show";
 
+    /* `ovpndns v6 on|off` — the IPv6 block alone, for testing or for clearing a
+     * block left behind by a session that died, from a root shell. */
+    if (strcmp(mode, "v6") == 0) {
+        if (argc < 3 || (strcmp(argv[2], "on") != 0 && strcmp(argv[2], "off") != 0)) {
+            printf("usage: ovpndns v6 on|off\n");
+            return 2;
+        }
+        return v6_block(strcmp(argv[2], "on") == 0);
+    }
+
+    /* Before, and independent of, the DNS work below: a resolver problem must
+     * neither stop the block going up nor keep it from coming down. */
+    int v6rc = 0;
+    if (strcmp(mode, "up") == 0)
+        v6rc = v6_block(1);
+    else if (strcmp(mode, "down") == 0)
+        v6rc = v6_block(0);
+
     if (sc_load() != 0)
         return 1;
 
@@ -547,11 +675,12 @@ int main(int argc, char **argv)
         rc = do_show(store);
 
     CFRelease(store);
+    rc |= v6rc;
 
-    /* openvpn treats a non-zero --up exit as fatal; DNS is best-effort, so the
-     * tunnel should stay up even when the resolver could not be changed. */
+    /* openvpn treats a non-zero --up exit as fatal; DNS and the IPv6 block are
+     * best-effort, so the tunnel should stay up even when either failed. */
     if (rc != 0 && strcmp(mode, "up") == 0) {
-        printf("ovpndns: continuing with the tunnel despite the DNS failure\n");
+        printf("ovpndns: continuing with the tunnel despite the failure above\n");
         rc = 0;
     }
     return rc;

@@ -58,10 +58,15 @@ final class RootFix: NSObject, UIAlertViewDelegate {
         // bundlePath is /var/mobile/Applications/<UUID>/vpnold.app — no spaces
         // or quotes, and it comes from the OS, not from user input.
         let app = Bundle.main.bundlePath
+        // ovpndns needs no setuid (openvpn runs it as root already) but it does
+        // need its execute bit, and `ipainstaller` installs every bundle file
+        // except the main executable as 0644. openvpn treats a --up script it
+        // cannot run as fatal, so without this no connection gets anywhere.
         let cmd = "chown root:wheel '\(app)/openvpn' '\(app)/ovpnroot'"
                 + " && chmod 4755 '\(app)/openvpn' '\(app)/ovpnroot'"
-                + " && ls -l '\(app)/openvpn' '\(app)/ovpnroot'"
-        RunLog.line("[perm] su root: chown root:wheel + chmod 4755")
+                + " && chmod 755 '\(app)/ovpndns'"
+                + " && ls -l '\(app)/openvpn' '\(app)/ovpnroot' '\(app)/ovpndns'"
+        RunLog.line("[perm] su root: chown root:wheel + chmod 4755, chmod 755 ovpndns")
 
         RootFix.queue.async {
             var out = [CChar](repeating: 0, count: 4096)
@@ -100,6 +105,11 @@ final class RootFix: NSObject, UIAlertViewDelegate {
             if owner.intValue != 0 { return false }
             if mode.uint16Value & 0o4000 == 0 { return false }
         }
+        // Not setuid, but it must be executable, and some installers drop the
+        // bit (see apply). Fix permissions restores it with the rest.
+        guard let attrs = try? fm.attributesOfItem(atPath: Bundle.main.bundlePath + "/ovpndns"),
+              let mode = attrs[.posixPermissions] as? NSNumber,
+              mode.uint16Value & 0o111 != 0 else { return false }
         return true
     }
 }

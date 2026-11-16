@@ -57,13 +57,21 @@ hand from a root shell:
 A=$(ls -d /var/mobile/Applications/*/vpnold.app | head -1)
 chown root:wheel "$A/openvpn" "$A/ovpnroot"
 chmod 4755 "$A/openvpn" "$A/ovpnroot"
+chmod 755 "$A/ovpndns"   # ipainstaller installs helpers without +x
 ```
 
 ## Status
 
 Working end to end on iPhone 4S / iOS 6.1.3: TLS 1.3, full route table, real
-egress through the tunnel, DNS, clean teardown. Known gap: **IPv6 is not
-tunnelled**, en0's native IPv6 is untouched.
+egress through the tunnel, DNS, clean teardown.
+
+IPv6 is **blocked, not tunnelled**, while connected. The servers in use push no
+IPv6, and this jailbreak's `ifconfig`/`route` have no IPv6 support, so `ovpndns`
+adds a reject route for `2000::/3` (all global IPv6) through a routing socket.
+IPv6 connections then fail instantly and dual-stack apps fall back to IPv4,
+which goes through the tunnel; LAN (link-local/ULA) IPv6 is untouched. If a
+session dies without its `down` step, IPv6 stays blocked until the next
+disconnect or a reboot; `ovpndns v6 off` from a root shell clears it.
 
 ## Attribution
 
